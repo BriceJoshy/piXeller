@@ -17,10 +17,6 @@ class MyApp extends StatelessWidget {
         darkTheme: MyAppTheme.darkTheme,
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Container(
-            color: Colors.white,
-          ),
-        ));
+        home: on);
   }
 }

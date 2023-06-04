@@ -10,6 +10,7 @@ const myDarkColor = Colors.black;
 const myCardBgColor = Color(0xfff7f6f1);
 
 // Onbourding Colors
-const myOnboardingPage1Color = Color(0xffA2B9EE);
-const myOnboardingPage2Color = Colors.white;
-const myOnboardingPage3Color = Color(0xffffdcbd);
+
+const myOnboardingPage1Color = Colors.white;
+const myOnboardingPage2Color = Color(0xfffddcdf);
+const myOnboardingPage3Color = Color(0xffA2B9EE);

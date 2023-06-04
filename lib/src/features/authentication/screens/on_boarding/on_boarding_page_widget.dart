@@ -23,19 +23,22 @@ class onBoardingPageWidget extends StatelessWidget {
             image: AssetImage(model.image),
             height: model.height * 0.5,
           ),
-          const Column(
+          Column(
             children: [
               Text(
-                myOnboardingTitle1,
+                model.title,
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
+              SizedBox(
+                height: 10,
+              ),
               Text(
-                myOnboardingSubTitle1,
+                model.subTitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(
-                height: 90,
+                height: 120,
               )
             ],
           ),

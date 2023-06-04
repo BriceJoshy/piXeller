@@ -11,9 +11,14 @@ late Size mq;
 final controller = LiquidController();
 int currentPage = 0;
 
-class onBoardingScreen extends StatelessWidget {
+class onBoardingScreen extends StatefulWidget {
   const onBoardingScreen({super.key});
 
+  @override
+  State<onBoardingScreen> createState() => _onBoardingScreenState();
+}
+
+class _onBoardingScreenState extends State<onBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -52,14 +57,17 @@ class onBoardingScreen extends StatelessWidget {
           LiquidSwipe(
             pages: pages,
             liquidController: controller,
-            onPageChangeCallback: OnPageChangeCallback,
+            onPageChangeCallback: onPageChangeCallback,
             slideIconWidget: const Icon(Icons.arrow_back_ios_new_rounded),
             enableSideReveal: true,
           ),
           Positioned(
             bottom: 60,
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                int nextPage = controller.currentPage + 1;
+                controller.animateToPage(page: nextPage);
+              },
               style: ElevatedButton.styleFrom(
                   side: const BorderSide(color: Colors.black26),
                   shape: const CircleBorder(),
@@ -101,8 +109,9 @@ class onBoardingScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-OnPageChangeCallback(int activePageIndex) {
-  currentPage = activePageIndex;
+  onPageChangeCallback(int activePageIndex) {
+    setState(() {});
+    currentPage = activePageIndex;
+  }
 }

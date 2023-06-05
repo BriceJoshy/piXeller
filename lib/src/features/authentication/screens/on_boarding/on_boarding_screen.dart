@@ -4,6 +4,7 @@ import 'package:mini_project_1/src/constants/colors.dart';
 import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:mini_project_1/src/constants/text_strings.dart';
 import 'package:mini_project_1/src/features/authentication/models/model_on_boarding.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_page_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -93,7 +94,10 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                   ),
                 ),
               ),
-              onPressed: () => controller.jumpToPage(page: 2),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const loginPage()));
+              },
               child: const Text(
                 "Skip",
                 style: TextStyle(color: Colors.black),

@@ -84,7 +84,15 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
           Positioned(
             top: 50,
             right: 20,
-            child: TextButton(
+            child: OutlinedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: const BorderSide(color: Colors.black, width: 10),
+                  ),
+                ),
+              ),
               onPressed: () => controller.jumpToPage(page: 2),
               child: const Text(
                 "Skip",
@@ -98,7 +106,6 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
               activeIndex: controller.currentPage,
               count: 3,
               effect: WormEffect(
-                type: WormType.thin,
                 activeDotColor: Colors.deepPurple.shade400,
                 dotHeight: 10,
                 dotWidth: 30,

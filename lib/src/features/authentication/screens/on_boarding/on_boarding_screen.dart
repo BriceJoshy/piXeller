@@ -6,6 +6,7 @@ import 'package:mini_project_1/src/constants/text_strings.dart';
 import 'package:mini_project_1/src/features/authentication/models/model_on_boarding.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_page_widget.dart';
+import 'package:mini_project_1/src/features/authentication/screens/welcome_screen/welcome_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 late Size mq;
@@ -96,7 +97,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
               ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const loginPage()));
+                    MaterialPageRoute(builder: (_) => const WelcomePage()));
               },
               child: const Text(
                 "Skip",

@@ -41,6 +41,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   simple_animations: ^5.0.1
   rive: ^0.7.16
+  flutter_animated_button: ^2.0.3
 
 dev_dependencies:
   flutter_test:

@@ -22,3 +22,4 @@ const String myLoginPageClock = "assets/images/login_screen/clock.png";
 // --WELCOME PAGE IMAGES--
 const String myWelcomePageShapesAnimation = "assets/RiveAssets/shapes.riv";
 const String myWelcomePageSpline = "assets/images/welcome_page/Spline.png";
+const String myWelcomePageButton = "assets/RiveAssets/button.riv";

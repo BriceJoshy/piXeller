@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_1/src/constants/image_strings.dart';
+import 'package:mini_project_1/src/features/animations/FadeAnimation.dart';
 
 class loginPage extends StatelessWidget {
   const loginPage({super.key});
@@ -23,10 +24,13 @@ class loginPage extends StatelessWidget {
                     left: 30,
                     width: 80,
                     height: 200,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(myLoginPageLight1),
+                    child: FadeAnimation(
+                      1,
+                      Container(
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(myLoginPageLight1),
+                          ),
                         ),
                       ),
                     ),
@@ -35,10 +39,13 @@ class loginPage extends StatelessWidget {
                     left: 140,
                     width: 80,
                     height: 150,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(myLoginPageLight2),
+                    child: FadeAnimation(
+                      1.3,
+                      Container(
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(myLoginPageLight2),
+                          ),
                         ),
                       ),
                     ),
@@ -48,10 +55,13 @@ class loginPage extends StatelessWidget {
                     top: 40,
                     width: 80,
                     height: 150,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(myLoginPageClock),
+                    child: FadeAnimation(
+                      1.5,
+                      Container(
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(myLoginPageClock),
+                          ),
                         ),
                       ),
                     ),

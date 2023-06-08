@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:mini_project_1/src/features/animations/animated_button.dart';
@@ -46,6 +44,9 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 70),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 70,
+                  ),
                   Text(
                     "Linking Producers, Expanding Markets!",
                     style: GoogleFonts.poppins(
@@ -64,15 +65,17 @@ class _WelcomePageState extends State<WelcomePage> {
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                   ),
-                  const SizedBox(
-                    height: 250,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Positioned(child: MyAnimatedButton()),
-                    ],
-                  )
+                  const Spacer(),
+                  Stack(children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20)),
+                      height: 70,
+                      width: 205,
+                    ),
+                    MyAnimatedButton()
+                  ])
                 ],
               ),
             ),

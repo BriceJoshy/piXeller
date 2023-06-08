@@ -66,16 +66,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ),
                   const Spacer(),
-                  Stack(children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20)),
-                      height: 70,
-                      width: 205,
-                    ),
-                    MyAnimatedButton()
-                  ])
+                  MyAnimatedButton()
                 ],
               ),
             ),

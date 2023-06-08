@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_project_1/src/constants/text_strings.dart';
 
 import '../../models/model_on_boarding.dart';
 

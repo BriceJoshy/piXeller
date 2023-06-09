@@ -16,10 +16,8 @@ class MyAnimatedButton extends StatelessWidget {
         Future.delayed(
           const Duration(milliseconds: 500),
           () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => const MyAnimatedLoginScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => MyAnimatedLoginScreen()));
           },
         );
       },

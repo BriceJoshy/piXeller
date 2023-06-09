@@ -1,7 +1,7 @@
 enum Animated {
   idle,
-  handsUp,
   handsDown,
+  handsUp,
   success,
   fail,
   lookDownLeft,

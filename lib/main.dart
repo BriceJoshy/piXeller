@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page%20copy.dart';
 import 'package:mini_project_1/src/utils/themes/theme.dart';
 
 import 'src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       darkTheme: MyAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const onBoardingScreen(),
+      home: const MyAnimatedLoginScreen(),
     );
   }
 }

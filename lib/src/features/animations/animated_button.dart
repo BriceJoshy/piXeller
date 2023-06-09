@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page%20copy.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 
 class MyAnimatedButton extends StatelessWidget {
@@ -16,7 +17,9 @@ class MyAnimatedButton extends StatelessWidget {
           const Duration(milliseconds: 500),
           () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const loginPage()));
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const MyAnimatedLoginScreen()));
           },
         );
       },

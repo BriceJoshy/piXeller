@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/common_widgets/gradient_button.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../constants/image_strings.dart';
@@ -152,14 +151,15 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
             ),
             Positioned(
               top: 180,
-              left: 145,
+              left: 140,
               right: 10,
               child: Text(
                 "Login",
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
                   letterSpacing: 2,
                   color: Colors.white,
-                  fontSize: 50,
+                  fontSize: 45,
                   // fontWeight: FontWeight.bold
                 ),
               ),
@@ -184,13 +184,13 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                       ),
                     ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                    padding: const EdgeInsets.only(left: 30, right: 30),
                     child: Container(
                       alignment: Alignment.center,
                       width: 400,
-                      padding: const EdgeInsets.all(5),
-                      margin: const EdgeInsets.only(bottom: 15 * 4),
+                      padding: const EdgeInsets.only(
+                          top: 5, left: 5, right: 5, bottom: 10),
+                      // margin: const EdgeInsets.only(bottom: 15 * 4),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -249,6 +249,34 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      login();
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Login",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 70,
                   ),
                 ],
               ),

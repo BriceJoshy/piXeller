@@ -71,7 +71,7 @@ flutter:
     - assets/images/onboarding_screen/
     - assets/images/welcome_page/
     - assets/logo/
-    - assets/videos/
+    - assets/gifs/
     - assets/RiveAssets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

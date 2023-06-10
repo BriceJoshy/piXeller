@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
@@ -217,6 +218,11 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                               style: const TextStyle(fontSize: 14),
                               cursorColor: const Color(0xffb04863),
                               decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: SvgPicture.asset(myLoginPageEmailIcon),
+                                ),
                                 border: InputBorder.none,
                                 hintText: "Email",
                                 hintStyle:
@@ -239,6 +245,12 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                               style: const TextStyle(fontSize: 14),
                               cursorColor: const Color(0xffb04863),
                               decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child:
+                                      SvgPicture.asset(myLoginPagePasswordIcon),
+                                ),
                                 border: InputBorder.none,
                                 hintText: "Password",
                                 hintStyle:

@@ -19,6 +19,8 @@ const String myLoginPageLight1 = "assets/images/login_screen/light_1.png";
 const String myLoginPageLight2 = "assets/images/login_screen/light_2.png";
 const String myLoginPageClock = "assets/images/login_screen/clock.png";
 const String myLoginPageBearAnimation = "assets/RiveAssets/login_copy.riv";
+const String myLoginPageEmailIcon = "assets/icons/email.svg";
+const String myLoginPagePasswordIcon = "assets/icons/password.svg";
 
 // --WELCOME PAGE IMAGES--
 const String myWelcomePageShapesAnimation = "assets/RiveAssets/shapes.riv";

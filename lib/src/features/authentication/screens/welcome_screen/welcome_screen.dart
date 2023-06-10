@@ -6,6 +6,8 @@ import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:mini_project_1/src/features/animations/animated_button.dart';
 import 'package:rive/rive.dart';
 
+bool isSignInDialogShown = false;
+
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
@@ -39,35 +41,42 @@ class _WelcomePageState extends State<WelcomePage> {
               child: const SizedBox(),
             ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 70),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                  ),
-                  Text(
-                    "Linking Producers, Expanding Markets!",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 43,
-                        height: 1.2,
+          AnimatedPositioned(
+            top: isSignInDialogShown ? -50 : 0,
+            duration: Duration(milliseconds: 240),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 70),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Text(
+                      "Linking Producers, Expanding Markets!",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 43,
+                          height: 1.2,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Our app serves as a powerful platform, bridging the gap between producers and distributors.",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Our app serves as a powerful platform, bridging the gap between producers and distributors.",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  MyAnimatedButton()
-                ],
+                    const Spacer(),
+                    MyAnimatedButton()
+                  ],
+                ),
               ),
             ),
           )

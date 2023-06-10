@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/common_widgets/gradient_button.dart';
 import 'package:rive/rive.dart';
+
+import '../../../../constants/image_strings.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key? key}) : super(key: key);
@@ -23,12 +27,11 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationURL = defaultTargetPlatform == TargetPlatform.android ||
             defaultTargetPlatform == TargetPlatform.iOS
-        ? 'assets/RiveAssets/login.riv'
-        : 'RiveAssets/login.riv';
+        ? myLoginPageBearAnimation
+        : myLoginPageBearAnimation;
     rootBundle.load(animationURL).then(
       (data) {
         final file = RiveFile.import(data);
@@ -92,109 +95,159 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffd6e2ea),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Stack(
           children: [
-            if (_teddyArtboard != null)
-              SizedBox(
-                width: 400,
-                height: 300,
-                child: Rive(
-                  artboard: _teddyArtboard!,
-                  fit: BoxFit.fitWidth,
+            Container(
+              color: Colors.transparent,
+              height: 820,
+              width: double.infinity,
+            ),
+            Positioned(
+              child: Container(
+                height: 400,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(myLoginPageBackground),
+                      fit: BoxFit.fill),
                 ),
               ),
-            Container(
-              alignment: Alignment.center,
-              width: 400,
-              padding: const EdgeInsets.only(bottom: 15),
-              margin: const EdgeInsets.only(bottom: 15 * 4),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+            ),
+            Positioned(
+              left: 30,
+              width: 80,
+              height: 200,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(myLoginPageLight1),
+                  ),
+                ),
               ),
+            ),
+            Positioned(
+              left: 140,
+              width: 80,
+              height: 150,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(myLoginPageLight2),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 40,
+              top: 40,
+              width: 80,
+              height: 150,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(myLoginPageClock),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 180,
+              left: 145,
+              right: 10,
+              child: Text(
+                "Login",
+                style: GoogleFonts.lobster(
+                  letterSpacing: 2,
+                  color: Colors.white,
+                  fontSize: 50,
+                  // fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+            Positioned(
+              top: 200,
+              left: 0,
+              right: 0,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if (_teddyArtboard != null)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: SizedBox(
+                        width: 350,
+                        height: 300,
+                        child: Rive(
+                          artboard: _teddyArtboard!,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 15 * 2),
-                        TextField(
-                          controller: _emailController,
-                          onTap: lookOnTheTextField,
-                          onChanged: moveEyeBalls,
-                          keyboardType: TextInputType.emailAddress,
-                          style: const TextStyle(fontSize: 14),
-                          cursorColor: const Color(0xffb04863),
-                          decoration: const InputDecoration(
-                            hintText: "Email/Username",
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            focusColor: Color(0xffb04863),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xffb04863),
+                    padding:
+                        const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 400,
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.only(bottom: 15 * 4),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromRGBO(143, 148, 251, .3),
+                                blurRadius: 20,
+                                offset: Offset(0, 10))
+                          ]),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: Colors.grey.shade100),
                               ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: TextField(
+                              controller: _emailController,
+                              onTap: lookOnTheTextField,
+                              onChanged: moveEyeBalls,
+                              keyboardType: TextInputType.emailAddress,
+                              style: const TextStyle(fontSize: 14),
+                              cursorColor: const Color(0xffb04863),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Email",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey.shade400),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 15),
-                        TextField(
-                          controller: _passwordController,
-                          onTap: handsOnTheEyes,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          style: const TextStyle(fontSize: 14),
-                          cursorColor: const Color(0xffb04863),
-                          decoration: const InputDecoration(
-                            hintText: "Password",
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            focusColor: Color(0xffb04863),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xffb04863),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: Colors.grey.shade100),
                               ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: TextField(
+                              controller: _passwordController,
+                              onTap: handsOnTheEyes,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: true,
+                              style: const TextStyle(fontSize: 14),
+                              cursorColor: const Color(0xffb04863),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Password",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey.shade400),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //remember me checkbox
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: false,
-                                  onChanged: (value) {},
-                                ),
-                                const Text("Remember me"),
-                              ],
-                            ),
-                            ElevatedButton(
-                              onPressed: login,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffb04863),
-                              ),
-                              child: const Text("Login"),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

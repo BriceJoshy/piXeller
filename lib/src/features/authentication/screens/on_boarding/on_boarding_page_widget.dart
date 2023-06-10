@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../models/model_on_boarding.dart';
 
-class onBoardingPageWidget extends StatelessWidget {
-  const onBoardingPageWidget({
+class OnBoardingPageWidget extends StatelessWidget {
+  const OnBoardingPageWidget({
     Key? key,
     required this.model,
   }) : super(key: key);
@@ -26,17 +26,18 @@ class onBoardingPageWidget extends StatelessWidget {
             children: [
               Text(
                 model.title,
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 model.subTitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 120,
               )
             ],

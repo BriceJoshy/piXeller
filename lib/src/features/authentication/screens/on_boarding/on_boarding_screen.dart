@@ -25,7 +25,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
     final size = MediaQuery.of(context).size;
 
     final pages = [
-      onBoardingPageWidget(
+      OnBoardingPageWidget(
         model: OnBoardingModel(
             image: myOnboardingImage1,
             title: myOnboardingTitle1,
@@ -33,7 +33,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
             bgColor: myOnboardingPage1Color,
             height: size.height),
       ),
-      onBoardingPageWidget(
+      OnBoardingPageWidget(
         model: OnBoardingModel(
             image: myOnboardingImage2,
             title: myOnboardingTitle2,
@@ -41,7 +41,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
             bgColor: myOnboardingPage2Color,
             height: size.height),
       ),
-      onBoardingPageWidget(
+      OnBoardingPageWidget(
         model: OnBoardingModel(
             image: myOnboardingImage3,
             title: myOnboardingTitle3,

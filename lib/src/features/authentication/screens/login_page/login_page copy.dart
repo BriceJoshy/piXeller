@@ -1,193 +1,207 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_project_1/src/common_widgets/gradient_button.dart';
-import 'package:mini_project_1/src/constants/image_strings.dart';
-import 'package:mini_project_1/src/features/animations/animatedEnum.dart';
-
 import 'package:rive/rive.dart';
 
-// import '../../../animations/AnimationEnum.dart';
-
-class MyAnimationEnumLoginScreen extends StatefulWidget {
-  const MyAnimationEnumLoginScreen({super.key});
+class LoginForm extends StatefulWidget {
+  LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<MyAnimationEnumLoginScreen> createState() =>
-      _MyAnimationEnumLoginScreenState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _MyAnimationEnumLoginScreenState
-    extends State<MyAnimationEnumLoginScreen> {
-  Artboard? _artboard;
-  late RiveAnimationController idle;
-  late RiveAnimationController handsDown;
-  late RiveAnimationController Hands_up;
-  late RiveAnimationController success;
-  late RiveAnimationController fail;
-  late RiveAnimationController Look_left;
-  late RiveAnimationController Look_right;
+class _LoginFormState extends State<LoginForm> {
+  late String animationURL;
+  Artboard? _teddyArtboard;
+  SMITrigger? successTrigger, failTrigger;
+  SMIBool? isHandsUp, isChecking;
+  SMINumber? numLook;
+
+  StateMachineController? stateMachineController;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    idle = SimpleAnimation(AnimationEnum.idle.name);
-    handsDown = SimpleAnimation(AnimationEnum.hands_down.name);
-    Hands_up = SimpleAnimation(AnimationEnum.Hands_up.name);
-    success = SimpleAnimation(AnimationEnum.success.name);
-    fail = SimpleAnimation(AnimationEnum.fail.name);
-    Look_left = SimpleAnimation(AnimationEnum.Look_down_left.name);
-    Look_right = SimpleAnimation(AnimationEnum.Look_down_right.name);
-    rootBundle.load(myLoginPageBearAnimation).then((value) {
-      final file = RiveFile.import(value);
-      final artboard = file.mainArtboard;
-      artboard.addController(idle);
-      setState(() {
-        _artboard = artboard;
-      });
-    });
-    password.addListener(onFocus);
+    animationURL = defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS
+        ? 'assets/RiveAssets/login.riv'
+        : 'RiveAssets/login.riv';
+    rootBundle.load(animationURL).then(
+      (data) {
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        stateMachineController =
+            StateMachineController.fromArtboard(artboard, "Login Machine");
+        if (stateMachineController != null) {
+          artboard.addController(stateMachineController!);
+
+          stateMachineController!.inputs.forEach((e) {
+            debugPrint(e.runtimeType.toString());
+            debugPrint("name${e.name}End");
+          });
+
+          stateMachineController!.inputs.forEach((element) {
+            if (element.name == "trigSuccess") {
+              successTrigger = element as SMITrigger;
+            } else if (element.name == "trigFail") {
+              failTrigger = element as SMITrigger;
+            } else if (element.name == "isHandsUp") {
+              isHandsUp = element as SMIBool;
+            } else if (element.name == "isChecking") {
+              isChecking = element as SMIBool;
+            } else if (element.name == "numLook") {
+              numLook = element as SMINumber;
+            }
+          });
+        }
+
+        setState(() => _teddyArtboard = artboard);
+      },
+    );
   }
 
-  FocusNode password = FocusNode();
-  void onFocus() {
-    if (password.hasFocus) {
-      addHandsUp();
+  void handsOnTheEyes() {
+    isHandsUp?.change(true);
+  }
+
+  void lookOnTheTextField() {
+    isHandsUp?.change(false);
+    isChecking?.change(true);
+    numLook?.change(0);
+  }
+
+  void moveEyeBalls(val) {
+    numLook?.change(val.length.toDouble());
+  }
+
+  void login() {
+    isChecking?.change(false);
+    isHandsUp?.change(false);
+    if (_emailController.text == "admin" &&
+        _passwordController.text == "admin") {
+      successTrigger?.fire();
     } else {
-      addHandsDown();
+      failTrigger?.fire();
     }
   }
 
-  void removeAllController() {
-    _artboard!.artboard.removeController(idle);
-    _artboard!.artboard.removeController(handsDown);
-    _artboard!.artboard.removeController(Hands_up);
-    _artboard!.artboard.removeController(success);
-    _artboard!.artboard.removeController(fail);
-    _artboard!.artboard.removeController(Look_left);
-    _artboard!.artboard.removeController(Look_right);
-  }
-
-  void addIdle() {
-    removeAllController();
-    _artboard!.artboard.addController(idle);
-  }
-
-  void addHandsUp() {
-    removeAllController();
-    _artboard!.artboard.addController(Hands_up);
-  }
-
-  void addHandsDown() {
-    removeAllController();
-    _artboard!.artboard.addController(handsDown);
-  }
-
-  void addSuccess() {
-    removeAllController();
-    _artboard!.artboard.addController(success);
-  }
-
-  void addFail() {
-    removeAllController();
-    _artboard!.artboard.addController(fail);
-  }
-
-  void addLookDownLeft() {
-    // lookLeft = true;
-    removeAllController();
-    _artboard!.artboard.addController(Look_left);
-  }
-
-  void addLookDownRight() {
-    // lookRight = true;
-    removeAllController();
-    _artboard!.artboard.addController(Look_right);
-  }
-
-  // bool lookLeft = false;
-  // bool lookRight = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffD6E2EA),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 300,
-            child: _artboard == null
-                ? const SizedBox()
-                : Rive(
-                    artboard: _artboard!,
-                  ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color.fromRGBO(143, 148, 251, .3),
-                            blurRadius: 20,
-                            offset: Offset(0, 10))
-                      ]),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade100),
+      backgroundColor: const Color(0xffd6e2ea),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (_teddyArtboard != null)
+              SizedBox(
+                width: 400,
+                height: 300,
+                child: Rive(
+                  artboard: _teddyArtboard!,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            Container(
+              alignment: Alignment.center,
+              width: 400,
+              padding: const EdgeInsets.only(bottom: 15),
+              margin: const EdgeInsets.only(bottom: 15 * 4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 15 * 2),
+                        TextField(
+                          controller: _emailController,
+                          onTap: lookOnTheTextField,
+                          onChanged: moveEyeBalls,
+                          keyboardType: TextInputType.emailAddress,
+                          style: const TextStyle(fontSize: 14),
+                          cursorColor: const Color(0xffb04863),
+                          decoration: const InputDecoration(
+                            hintText: "Email/Username",
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusColor: Color(0xffb04863),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffb04863),
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
                         ),
-                        child: TextField(
-                          onChanged: (value) {
-                            addHandsUp();
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Email",
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: TextField(
-                          focusNode: password,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
+                        const SizedBox(height: 15),
+                        TextField(
+                          controller: _passwordController,
+                          onTap: handsOnTheEyes,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          style: const TextStyle(fontSize: 14),
+                          cursorColor: const Color(0xffb04863),
+                          decoration: const InputDecoration(
                             hintText: "Password",
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusColor: Color(0xffb04863),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffb04863),
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
                         ),
-                      )
-                    ],
+                        const SizedBox(height: 15),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //remember me checkbox
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: false,
+                                  onChanged: (value) {},
+                                ),
+                                const Text("Remember me"),
+                              ],
+                            ),
+                            ElevatedButton(
+                              onPressed: login,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xffb04863),
+                              ),
+                              child: const Text("Login"),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                    onTap: () {
-                      // addFail();
-                    },
-                    child: const GradientButton()),
-                const SizedBox(
-                  height: 70,
-                ),
-                const Text(
-                  "Forgot Password?",
-                  style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
-                )
-              ],
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

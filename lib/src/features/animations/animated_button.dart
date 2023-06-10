@@ -13,15 +13,13 @@ class MyAnimatedButton extends StatelessWidget {
       width: 200,
       borderRadius: 20,
       onPress: () {
-        Future.delayed(
-          const Duration(milliseconds: 500),
-          () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => const MyAnimationEnumLoginScreen()));
-          },
-        );
+        // Future.delayed(
+        //   const Duration(milliseconds: 500),
+        //   () {
+        //     Navigator.push(context,
+        //         MaterialPageRoute(builder: (_) => const LoginScreenTest()));
+        //   },
+        // );
       },
       text: 'Join Now',
       selectedTextColor: Colors.black,

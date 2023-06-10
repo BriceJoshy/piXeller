@@ -19,7 +19,7 @@ class MyAnimatedButton extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (_) => const MyAnimatedLoginScreen()));
+                    builder: (_) => const MyAnimationEnumLoginScreen()));
           },
         );
       },

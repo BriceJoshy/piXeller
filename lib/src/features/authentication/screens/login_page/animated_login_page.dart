@@ -7,14 +7,14 @@ import 'package:rive/rive.dart';
 
 import '../../../../constants/image_strings.dart';
 
-class LoginForm extends StatefulWidget {
-  LoginForm({Key? key}) : super(key: key);
+class AnimatedLoginForm extends StatefulWidget {
+  AnimatedLoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<AnimatedLoginForm> createState() => _AnimatedLoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
   late String animationURL;
   Artboard? _teddyArtboard;
   SMITrigger? successTrigger, failTrigger;

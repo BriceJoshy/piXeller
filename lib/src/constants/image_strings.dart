@@ -24,3 +24,7 @@ const String myLoginPageBearAnimation = "assets/RiveAssets/login_copy.riv";
 const String myWelcomePageShapesAnimation = "assets/RiveAssets/shapes.riv";
 const String myWelcomePageSpline = "assets/images/welcome_page/Spline.png";
 const String myWelcomePageButton = "assets/RiveAssets/button.riv";
+
+//---WELCOME PAGE DIALOG BOX GIFS---
+const String myWelcomePageLoginGif = "assets/gifs/login.gif";
+const String myWelcomePageSigninGIf = "assets/gifs/signin.gif";

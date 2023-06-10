@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page%20copy.dart';
-import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
+import 'package:mini_project_1/src/constants/image_strings.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
 
 class MyAnimatedButton extends StatelessWidget {
   const MyAnimatedButton({super.key});
@@ -52,16 +52,69 @@ class MyAnimatedButton extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xfff77d8e),
-                                minimumSize: Size(double.infinity, 56)),
-                            onPressed: () {},
-                            icon: Image.asset("name"),
+                              backgroundColor: Colors.black,
+                              minimumSize: const Size(double.infinity, 56),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(25),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => AnimatedLoginForm()));
+                            },
+                            icon: Image.asset(
+                              myWelcomePageLoginGif,
+                              height: 35,
+                              width: 35,
+                              color: Colors.white,
+                            ),
                             label: Text(
                               "Login",
                               style: GoogleFonts.poppins(
-                                  fontSize: 34, fontWeight: FontWeight.w700),
+                                  fontSize: 25, fontWeight: FontWeight.w500),
                             ),
-                          )
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 30),
+                            child: Row(
+                              children: [
+                                const Expanded(child: Divider()),
+                                Text(
+                                  "OR",
+                                  style:
+                                      GoogleFonts.poppins(color: Colors.black),
+                                ),
+                                const Expanded(child: Divider())
+                              ],
+                            ),
+                          ),
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              minimumSize: const Size(double.infinity, 56),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(25),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {},
+                            icon: Image.asset(
+                              myWelcomePageSigninGIf,
+                              height: 35,
+                              width: 35,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              "Sign In",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 25, fontWeight: FontWeight.w500),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -74,12 +127,9 @@ class MyAnimatedButton extends StatelessWidget {
       },
       text: 'Join Now',
       selectedTextColor: Colors.black,
-      textStyle: const TextStyle(
-          color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-      backgroundColor: Colors.white,
-      transitionType: TransitionType.CENTER_ROUNDER,
-      selectedGradientColor:
-          const LinearGradient(colors: [Color(0xffDB308D), Color(0xffFFBB5C)]),
+      textStyle: GoogleFonts.poppins(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.black,
     );
   }
 }

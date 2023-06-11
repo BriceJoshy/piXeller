@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../constants/image_strings.dart';
@@ -151,17 +153,19 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
               ),
             ),
             Positioned(
-              top: 180,
-              left: 140,
-              right: 10,
-              child: Text(
-                "Login",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 2,
-                  color: Colors.white,
-                  fontSize: 45,
-                  // fontWeight: FontWeight.bold
+              top: 200,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  "Welcome Back!",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 2,
+                    color: Colors.white,
+                    fontSize: 40,
+                    // fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
             ),
@@ -269,26 +273,50 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                     onTap: () {
                       login();
                     },
-                    child: Container(
-                      height: 50,
-                      width: 300,
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30),
+                      child: Container(
+                        height: 50,
+                        width: 400,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                        child: Center(
+                          child: Text(
+                            "Login",
+                            style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 70,
+                    height: 30,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: GoogleFonts.poppins(
+                          color: Colors.black, fontSize: 16),
+                      children: [
+                        const TextSpan(text: "Don't have an Account?"),
+                        TextSpan(
+                          text: "SignIn",
+                          style: const TextStyle(color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignInPage(),
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

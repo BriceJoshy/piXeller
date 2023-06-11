@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_1/src/common_widgets/provider.dart';
+import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
@@ -48,7 +49,7 @@ class _MyDropDownState extends State<MyDropDown> {
       width: width * 1,
       child: InputDecorator(
         decoration: InputDecoration(
-          // prefixIcon: Padding(padding: EdgeInsets.symmetric(horizontal: 0)),
+          prefixIcon: const Image(image: AssetImage(mySignInPageRoleIcon)),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: null,
           labelStyle: const TextStyle(

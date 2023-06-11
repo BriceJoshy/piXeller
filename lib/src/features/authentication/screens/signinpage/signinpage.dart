@@ -131,7 +131,8 @@ class _SignInPageState extends State<SignInPage> {
                             decoration: InputDecoration(
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: SvgPicture.asset(myLoginPageEmailIcon),
+                                child: Image(
+                                    image: AssetImage(mySignInPageNameIcon)),
                               ),
                               border: InputBorder.none,
                               hintText: "Name",
@@ -160,7 +161,8 @@ class _SignInPageState extends State<SignInPage> {
                             decoration: InputDecoration(
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
-                                // child: SvgPicture.asset(myLoginPageEmailIcon),
+                                child: Image(
+                                    image: AssetImage(mySignInPageEmailIcon)),
                               ),
                               border: InputBorder.none,
                               hintText: "Email",
@@ -190,8 +192,9 @@ class _SignInPageState extends State<SignInPage> {
                             decoration: InputDecoration(
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
-                                // child:
-                                //     SvgPicture.asset(myLoginPagePasswordIcon),
+                                child: Image(
+                                    image:
+                                        AssetImage(mySignInPagePasswordIcon)),
                               ),
                               border: InputBorder.none,
                               hintText: "Password",

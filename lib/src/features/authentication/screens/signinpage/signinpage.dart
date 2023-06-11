@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
 
 import '../../../../constants/image_strings.dart';
+
+String selectedRole = "Role";
+List<String> myList = ["Distributer", "Producer"];
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -11,6 +15,13 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedRole = "Role";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,118 +104,125 @@ class _SignInPageState extends State<SignInPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 400,
-                      padding: const EdgeInsets.only(
-                          top: 5, left: 5, right: 5, bottom: 10),
-                      // margin: const EdgeInsets.only(bottom: 15 * 4),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color.fromRGBO(143, 148, 251, .3),
-                                blurRadius: 20,
-                                offset: Offset(0, 10))
-                          ]),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade100),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      children: [
+                        MyDropDown(myList: myList, isEdit: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 2))
+                              ]),
+                          child: TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: const Color(0xffb04863),
+                            decoration: InputDecoration(
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                // child: SvgPicture.asset(myLoginPageEmailIcon),
                               ),
-                            ),
-                            child: TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(fontSize: 14),
-                              cursorColor: const Color(0xffb04863),
-                              decoration: InputDecoration(
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  // child: SvgPicture.asset(myLoginPageEmailIcon),
-                                ),
-                                border: InputBorder.none,
-                                hintText: "Name",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
-                              ),
+                              border: InputBorder.none,
+                              hintText: "Name",
+                              hintStyle: TextStyle(color: Colors.grey.shade400),
                             ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade100),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 2))
+                              ]),
+                          child: TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: const Color(0xffb04863),
+                            decoration: InputDecoration(
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                // child: SvgPicture.asset(myLoginPageEmailIcon),
                               ),
-                            ),
-                            child: TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(fontSize: 14),
-                              cursorColor: const Color(0xffb04863),
-                              decoration: InputDecoration(
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  // child: SvgPicture.asset(myLoginPageEmailIcon),
-                                ),
-                                border: InputBorder.none,
-                                hintText: "Email",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade100),
-                              ),
-                            ),
-                            child: TextField(
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: true,
-                              style: const TextStyle(fontSize: 14),
-                              cursorColor: const Color(0xffb04863),
-                              decoration: InputDecoration(
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  // child:
-                                  //     SvgPicture.asset(myLoginPagePasswordIcon),
-                                ),
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
-                              ),
+                              border: InputBorder.none,
+                              hintText: "Email",
+                              hintStyle: TextStyle(color: Colors.grey.shade400),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 2))
+                              ]),
+                          child: TextField(
+                            keyboardType: TextInputType.visiblePassword,
+                            obscureText: true,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: const Color(0xffb04863),
+                            decoration: InputDecoration(
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                // child:
+                                //     SvgPicture.asset(myLoginPagePasswordIcon),
+                              ),
+                              border: InputBorder.none,
+                              hintText: "Password",
+                              hintStyle: TextStyle(color: Colors.grey.shade400),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 50,
-                      width: 300,
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 50,
+                        width: 400,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                        child: Center(
+                          child: Text(
+                            "Sign In",
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),

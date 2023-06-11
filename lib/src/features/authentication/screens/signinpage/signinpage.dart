@@ -124,12 +124,14 @@ class _SignInPageState extends State<SignInPage> {
                               ]),
                           child: TextField(
                             keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(fontSize: 14),
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
                             cursorColor: const Color(0xffb04863),
                             decoration: InputDecoration(
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
-                                // child: SvgPicture.asset(myLoginPageEmailIcon),
+                                child: SvgPicture.asset(myLoginPageEmailIcon),
                               ),
                               border: InputBorder.none,
                               hintText: "Name",

@@ -35,7 +35,7 @@ class _MyDropDownState extends State<MyDropDown> {
     var tagProvider = Provider.of<TagProvider>(context);
 
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -48,10 +48,7 @@ class _MyDropDownState extends State<MyDropDown> {
       width: width * 1,
       child: InputDecorator(
         decoration: InputDecoration(
-          prefixIcon: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            // child: SvgPicture.asset(myLoginPageEmailIcon),
-          ),
+          // prefixIcon: Padding(padding: EdgeInsets.symmetric(horizontal: 0)),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: null,
           labelStyle: const TextStyle(

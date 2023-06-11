@@ -30,3 +30,9 @@ const String myWelcomePageButton = "assets/RiveAssets/button.riv";
 //---WELCOME PAGE DIALOG BOX GIFS---
 const String myWelcomePageLoginGif = "assets/gifs/login.gif";
 const String myWelcomePageSigninGIf = "assets/gifs/signin.gif";
+
+// --SIGN IN PAGE ICONS--
+const String mySignInPageRoleIcon = "assets/icons/role.png";
+const String mySignInPageNameIcon = "assets/icons/name.png";
+const String mySignInPageEmailIcon = "assets/icons/mail.png";
+const String mySignInPagePasswordIcon = "assets/icons/password.png";

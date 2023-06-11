@@ -49,7 +49,10 @@ class _MyDropDownState extends State<MyDropDown> {
       width: width * 1,
       child: InputDecorator(
         decoration: InputDecoration(
-          prefixIcon: const Image(image: AssetImage(mySignInPageRoleIcon)),
+          prefixIcon: const Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Image(image: AssetImage(mySignInPageRoleIcon)),
+          ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: null,
           labelStyle: const TextStyle(

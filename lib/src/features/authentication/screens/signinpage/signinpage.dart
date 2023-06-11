@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             Positioned(
-              top: 200,
+              top: 390,
               left: 0,
               right: 0,
               child: Column(
@@ -132,7 +132,8 @@ class _SignInPageState extends State<SignInPage> {
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Image(
-                                    image: AssetImage(mySignInPageNameIcon)),
+                                  image: AssetImage(mySignInPageNameIcon),
+                                ),
                               ),
                               border: InputBorder.none,
                               hintText: "Name",
@@ -162,7 +163,8 @@ class _SignInPageState extends State<SignInPage> {
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Image(
-                                    image: AssetImage(mySignInPageEmailIcon)),
+                                  image: AssetImage(mySignInPageEmailIcon),
+                                ),
                               ),
                               border: InputBorder.none,
                               hintText: "Email",
@@ -193,8 +195,11 @@ class _SignInPageState extends State<SignInPage> {
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Image(
-                                    image:
-                                        AssetImage(mySignInPagePasswordIcon)),
+                                  image: AssetImage(
+                                    mySignInPagePasswordIcon,
+                                  ),
+                                  height: 20,
+                                ),
                               ),
                               border: InputBorder.none,
                               hintText: "Password",

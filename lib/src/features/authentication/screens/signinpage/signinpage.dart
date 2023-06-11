@@ -83,16 +83,18 @@ class _SignInPageState extends State<SignInPage> {
             ),
             Positioned(
               top: 180,
-              left: 140,
-              right: 10,
-              child: Text(
-                "Sign In",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 2,
-                  color: Colors.white,
-                  fontSize: 45,
-                  // fontWeight: FontWeight.bold
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  "Sign In",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 2,
+                    color: Colors.white,
+                    fontSize: 45,
+                    // fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
             ),

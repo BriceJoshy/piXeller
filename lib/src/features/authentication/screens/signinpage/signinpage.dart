@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
@@ -111,7 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         MyDropDown(myList: myList, isEdit: false),
                         const SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
                         Container(
                           padding: const EdgeInsets.all(8),
@@ -238,9 +239,6 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 70,
                   ),
                 ],
               ),

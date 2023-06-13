@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
-
 import '../../../../constants/image_strings.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
@@ -24,8 +25,8 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
   SMINumber? numLook;
 
   StateMachineController? stateMachineController;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -85,8 +86,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
   void login() {
     isChecking?.change(false);
     isHandsUp?.change(false);
-    if (_emailController.text == "admin" &&
-        _passwordController.text == "admin") {
+    if (emailController.text == "admin" && passwordController.text == "admin") {
       successTrigger?.fire();
     } else {
       failTrigger?.fire();
@@ -215,7 +215,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                               ),
                             ),
                             child: TextField(
-                              controller: _emailController,
+                              controller: emailController,
                               onTap: lookOnTheTextField,
                               onChanged: moveEyeBalls,
                               keyboardType: TextInputType.emailAddress,
@@ -242,7 +242,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                               ),
                             ),
                             child: TextField(
-                              controller: _passwordController,
+                              controller: passwordController,
                               onTap: handsOnTheEyes,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
@@ -271,7 +271,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                   ),
                   InkWell(
                     onTap: () {
-                      login();
+                      Login();
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -324,6 +324,13 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
           ],
         ),
       ),
+    );
+  }
+
+  Future Login() async {
+    await APIs.auth.signInWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
   }
 }

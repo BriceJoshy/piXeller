@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project_1/src/common_widgets/provider.dart';
+import 'package:mini_project_1/src/features/authentication/screens/splash_screen/splashscreen.dart';
 import 'package:mini_project_1/src/utils/themes/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -27,14 +28,15 @@ class MyApp extends StatelessWidget {
     height = size.height;
     width = size.width;
     return ChangeNotifierProvider(
-        create: (context) => TagProvider(),
-        child: MaterialApp(
-          //  for light theme
-          theme: MyAppTheme.lightTheme,
-          darkTheme: MyAppTheme.darkTheme,
-          themeMode: ThemeMode.system,
-          debugShowCheckedModeBanner: false,
-          home: const onBoardingScreen(),
-        ));
+      create: (context) => TagProvider(),
+      child: MaterialApp(
+        //  for light theme
+        theme: MyAppTheme.lightTheme,
+        darkTheme: MyAppTheme.darkTheme,
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        home: const splash_screen(),
+      ),
+    );
   }
 }

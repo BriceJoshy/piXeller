@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
 import '../../../../constants/image_strings.dart';
@@ -83,14 +85,26 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
     numLook?.change(val.length.toDouble());
   }
 
-  void login() {
+  // void login() {
+  //   isChecking?.change(false);
+  //   isHandsUp?.change(false);
+  //   if (emailController.text == "admin" && passwordController.text == "admin") {
+  //     successTrigger?.fire();
+  //   } else {
+  //     failTrigger?.fire();
+  //   }
+  // }
+
+  void loginFailed() {
     isChecking?.change(false);
     isHandsUp?.change(false);
-    if (emailController.text == "admin" && passwordController.text == "admin") {
-      successTrigger?.fire();
-    } else {
-      failTrigger?.fire();
-    }
+    failTrigger?.fire();
+  }
+
+  void loginSuccess() {
+    isChecking?.change(false);
+    isHandsUp?.change(false);
+    successTrigger?.fire();
   }
 
   @override
@@ -271,7 +285,8 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                   ),
                   InkWell(
                     onTap: () {
-                      Login();
+                      loginSuccess();
+                      loginFunction();
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -327,10 +342,18 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
     );
   }
 
-  Future Login() async {
-    await APIs.auth.signInWithEmailAndPassword(
+  Future loginFunction() async {
+    await APIs.auth
+        .signInWithEmailAndPassword(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-    );
+    )
+        .then((value) async {
+      loginSuccess();
+      await Future.delayed(Duration(milliseconds: 500), () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => homeScreen()));
+      });
+    });
   }
 }

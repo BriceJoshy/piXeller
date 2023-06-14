@@ -4,12 +4,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
+import '../../../../../main.dart';
 import '../../../../constants/image_strings.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
@@ -343,17 +345,30 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
   }
 
   Future loginFunction() async {
-    await APIs.auth
-        .signInWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-    )
-        .then((value) async {
-      loginSuccess();
-      await Future.delayed(Duration(milliseconds: 500), () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => homeScreen()));
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    try {
+      await APIs.auth
+          .signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      )
+          .then((value) async {
+        loginSuccess();
+        await Future.delayed(const Duration(milliseconds: 500), () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => homeScreen()));
+        });
       });
-    });
+    } on FirebaseAuthException catch (e) {
+      loginFailed();
+      print(e);
+    }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
 
 import '../../../../constants/image_strings.dart';
@@ -16,6 +18,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -159,6 +163,7 @@ class _SignInPageState extends State<SignInPage> {
                                     offset: Offset(0, 2))
                               ]),
                           child: TextField(
+                            controller: emailController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
@@ -190,6 +195,7 @@ class _SignInPageState extends State<SignInPage> {
                                     offset: Offset(0, 2))
                               ]),
                           child: TextField(
+                            controller: passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: true,
                             style: const TextStyle(fontSize: 14),
@@ -247,5 +253,15 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+
+  Future signInFunction() async {
+    try {
+      await APIs.auth.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 }

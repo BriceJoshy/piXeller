@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
 
+import '../../../../../main.dart';
 import '../../../../constants/image_strings.dart';
 
 String selectedRole = "Role";
@@ -225,7 +227,9 @@ class _SignInPageState extends State<SignInPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        signInFunction();
+                      },
                       child: Container(
                         height: 50,
                         width: 400,
@@ -256,12 +260,22 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future signInFunction() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
     try {
       await APIs.auth.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => homeScreen()));
     } on FirebaseAuthException catch (e) {
       print(e);
     }
+    // navigatorKey.currentState!.popUntil((route) {homeScreen();});
   }
 }

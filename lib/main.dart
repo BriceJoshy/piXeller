@@ -1,13 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mini_project_1/src/common_widgets/provider.dart';
 import 'package:mini_project_1/src/features/authentication/screens/splash_screen/splashscreen.dart';
 import 'package:mini_project_1/src/utils/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import 'src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
 var size, height, width;
 

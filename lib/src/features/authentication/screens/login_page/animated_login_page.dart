@@ -321,7 +321,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                       style: GoogleFonts.poppins(
                           color: Colors.black, fontSize: 16),
                       children: [
-                        const TextSpan(text: "Don't have an Account?"),
+                        const TextSpan(text: "Don't have an Account? "),
                         TextSpan(
                           text: "SignIn",
                           style: const TextStyle(color: Colors.blue),
@@ -358,17 +358,26 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       )
-          .then((value) async {
-        loginSuccess();
-        await Future.delayed(const Duration(milliseconds: 500), () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => homeScreen()));
-        });
-      });
+          .then(
+        (value) async {
+          loginSuccess();
+          await Future.delayed(
+            const Duration(milliseconds: 500),
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => homeScreen(),
+                ),
+              );
+            },
+          );
+        },
+      );
     } on FirebaseAuthException catch (e) {
       loginFailed();
       print(e);
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

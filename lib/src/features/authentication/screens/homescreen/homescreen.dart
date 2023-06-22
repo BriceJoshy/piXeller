@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
-import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
+import 'package:mini_project_1/src/constants/image_strings.dart';
+import 'package:rive/rive.dart';
 
 import '../../../../apis/api.dart';
 
-class homeScreen extends StatelessWidget {
+class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
 
   @override
+  State<homeScreen> createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          onPressed: () => {
-            APIs.auth.signOut().then((value) => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => AnimatedLoginForm())))
-          },
-          child: Text("Logout"),
-        ),
+      body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print("hello"),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
+
+
+//  Center(
+//         child: TextButton(
+//           onPressed: () => {
+//             APIs.auth.signOut().then((value) => Navigator.pushReplacement(
+//                 context,
+//                 MaterialPageRoute(builder: (_) => AnimatedLoginForm())))
+//           },
+//           child: Text("Logout"),
+//         ),
+//       ),

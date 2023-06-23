@@ -41,7 +41,7 @@ class _splash_screenState extends State<splash_screen> {
     mq = MediaQuery.of(context).size;
     return const Scaffold(
       body: Center(
-        child: Text("Splash Screen Stuff"),
+        child: CircularProgressIndicator(),
       ),
       // body: Stack(
       //   children: [

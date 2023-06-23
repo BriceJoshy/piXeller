@@ -38,4 +38,7 @@ const String mySignInPageEmailIcon = "assets/icons/mail.png";
 const String mySignInPagePasswordIcon = "assets/icons/password.png";
 
 // --HOME PAGE ICONS--
-const String myHomePageBottomNavigationBarIcon = "assets/RiveAssets/icons.riv";
+const String myHomePageBottomHomeIcon = "assets/gifs/home.gif";
+const String myHomePageBottomHistoryIcon = "assets/gifs/history.gif";
+const String myHomePageBottomAccountIcon = "assets/gifs/account.gif";
+const String myHomePageBottomSettingsIcon = "assets/gifs/settings.gif";

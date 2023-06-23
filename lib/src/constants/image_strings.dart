@@ -42,3 +42,4 @@ const String myHomePageBottomHomeIcon = "assets/gifs/home.gif";
 const String myHomePageBottomHistoryIcon = "assets/gifs/history.gif";
 const String myHomePageBottomAccountIcon = "assets/gifs/account.gif";
 const String myHomePageBottomSettingsIcon = "assets/gifs/settings.gif";
+const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";

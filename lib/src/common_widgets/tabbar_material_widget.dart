@@ -14,13 +14,14 @@ class _tabbar_material_widgetState extends State<tabbar_material_widget> {
     const placeholder = Opacity(
         opacity: 0,
         child: IconButton(onPressed: null, icon: Icon(Icons.no_cell)));
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: BottomAppBar(
-        padding: EdgeInsets.all(10),
-        color: Color(0xff4a5369).withOpacity(0.9),
-        notchMargin: 8,
-        elevation: 10,
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 8,
+      elevation: 10,
+      child: Container(
+        height: 60,
+        width: 100,
+        decoration: BoxDecoration(color: Color(0xff3a4054).withOpacity(0.8)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

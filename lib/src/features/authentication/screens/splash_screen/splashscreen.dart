@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homescreenbody.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
 //global object for accessing device screen size

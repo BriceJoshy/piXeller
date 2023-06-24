@@ -187,7 +187,9 @@ class _MyAnimatedButtonState extends State<MyAnimatedButton> {
           ),
         ),
       ),
+      // ignore: body_might_complete_normally_nullable
     ).then((onClosed) {
+      // ignore: avoid_print
       print("Dialog box close");
     });
   }

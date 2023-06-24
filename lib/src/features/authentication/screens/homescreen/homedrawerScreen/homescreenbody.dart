@@ -13,11 +13,12 @@ class HomePageBody extends StatefulWidget {
 
 class _HomePageBodyState extends State<HomePageBody> {
   int _selectedIndex = 0;
-  double Xoffset = 0;
-  double Yoffset = 0;
+  double xoffset = 0;
+  double yoffset = 0;
 
   double scaleFactor = 1;
   bool isDrawerOpen = false;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -27,10 +28,13 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      transform: Matrix4.translationValues(Xoffset, Yoffset, 0)
+      transform: Matrix4.translationValues(xoffset, yoffset, 0)
         ..scale(scaleFactor),
       duration: const Duration(milliseconds: 250),
-      color: Colors.grey.shade200,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
+      ),
       child: Stack(
         children: [
           Positioned(
@@ -46,8 +50,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                     ? IconButton(
                         onPressed: () {
                           setState(() {
-                            Xoffset = 0;
-                            Yoffset = 0;
+                            xoffset = 0;
+                            yoffset = 0;
                             scaleFactor = 1;
                             isDrawerOpen = false;
                           });
@@ -60,9 +64,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                         onPressed: () {
                           setState(
                             () {
-                              Xoffset = 230;
-                              Yoffset = 150;
-                              scaleFactor = 0.6;
+                              xoffset = 260;
+                              yoffset = 115;
+                              scaleFactor = 0.75;
                               isDrawerOpen = true;
                             },
                           );
@@ -103,25 +107,42 @@ class _HomePageBodyState extends State<HomePageBody> {
           ),
           Positioned(
             top: 200,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: SizedBox(
-                height: 70,
-                width: 170,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 65,
-                      width: 65,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0xff3a4054),
+            child: SizedBox(
+              height: 95,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 1),
+                    child: SizedBox(
+                      height: 95,
+                      width: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xff3a4054),
+                            ),
+                            // child: Image.asset("name"),
+                          ),
+                          Text(
+                            "Vegetables",
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.w500),
+                          )
+                        ],
                       ),
-                      // child: Image.asset("name"),
                     ),
-                    Text("Vegetables")
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

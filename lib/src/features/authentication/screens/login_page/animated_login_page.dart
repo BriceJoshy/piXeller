@@ -7,7 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
@@ -367,7 +368,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => homeScreen(),
+                  builder: (_) => HomeDrawerScreen(),
                 ),
               );
             },

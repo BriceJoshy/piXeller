@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homescreenbody.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../components/menuButton.dart';
 import '../../../../constants/image_strings.dart';
+import 'homedrawerScreen/homescreenbody.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -14,6 +14,14 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
   int _selectedIndex = 0;
+
+  bool isBottomNavBarVisible = true;
+
+  void toggleBottomNavBarVisibility() {
+    setState(() {
+      isBottomNavBarVisible = !isBottomNavBarVisible;
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {

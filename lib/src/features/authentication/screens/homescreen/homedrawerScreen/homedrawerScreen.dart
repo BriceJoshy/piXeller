@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_1/src/components/SIdeBarStuff/drawerScreen.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homescreenbody.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
+
+import 'homescreenbody.dart';
 
 class HomeDrawerScreen extends StatefulWidget {
   const HomeDrawerScreen({super.key});
@@ -13,9 +14,10 @@ class HomeDrawerScreen extends StatefulWidget {
 class _HomeDrawerScreenState extends State<HomeDrawerScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Stack(
-        children: [drawerScreen(), HomePageBody()],
+        children: [DrawerScreen(), const HomePageBody()],
       ),
     );
   }

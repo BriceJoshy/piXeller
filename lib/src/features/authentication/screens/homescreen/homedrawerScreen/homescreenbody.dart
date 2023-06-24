@@ -81,15 +81,22 @@ class _HomePageBodyState extends State<HomePageBody> {
               ],
             ),
           ),
-          // Container(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: const [
-          //       Icon(Icons.search_rounded),
-          //       Text("Search Your Products"),
-          //     ],
-          //   ),
-          // )
+          Positioned(
+            top: 100,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              child: const Row(
+                children: [
+                  Icon(Icons.search_rounded),
+                  SizedBox(
+                    width: 50,
+                  ),
+                  Text("Search Your Products"),
+                ],
+              ),
+            ),
+          ),
           Positioned(
             bottom: 15,
             left: 0,

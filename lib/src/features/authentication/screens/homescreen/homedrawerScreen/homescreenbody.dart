@@ -30,11 +30,11 @@ class _HomePageBodyState extends State<HomePageBody> {
       transform: Matrix4.translationValues(Xoffset, Yoffset, 0)
         ..scale(scaleFactor),
       duration: const Duration(milliseconds: 250),
-      color: Colors.white,
+      color: Colors.grey.shade200,
       child: Stack(
         children: [
           Positioned(
-            top: 30,
+            top: 45,
             left: 0,
             right: 0,
             child: Row(
@@ -82,8 +82,12 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
           ),
           Positioned(
-            top: 100,
+            top: 90,
+            left: 0,
+            right: 0,
             child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: const Row(
@@ -94,6 +98,30 @@ class _HomePageBodyState extends State<HomePageBody> {
                   ),
                   Text("Search Your Products"),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 200,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: SizedBox(
+                height: 70,
+                width: 170,
+                child: Row(
+                  children: [
+                    Container(
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xff3a4054),
+                      ),
+                      // child: Image.asset("name"),
+                    ),
+                    Text("Vegetables")
+                  ],
+                ),
               ),
             ),
           ),

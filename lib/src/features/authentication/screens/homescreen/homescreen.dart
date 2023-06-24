@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mini_project_1/src/features/authentication/screens/sideBarScreen/next_page.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homescreenbody.dart';
+import 'package:rive/rive.dart';
 
+import '../../../../components/menuButton.dart';
 import '../../../../constants/image_strings.dart';
 
 class homeScreen extends StatefulWidget {
@@ -19,21 +21,14 @@ class _homeScreenState extends State<homeScreen> {
     });
   }
 
+  late SMIBool isMenuOpen;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: const HomePageBody(),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      body: Stack(
-        children: [
-          const NextPage(),
-          // homescreen page stuff
-          MySideBarButton(
-            press: () {},
-          )
-        ],
-      ),
       bottomNavigationBar: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -90,47 +85,9 @@ class _homeScreenState extends State<homeScreen> {
       child: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Colors.white,
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.blue,
-        ),
-      ),
-    );
-  }
-}
-
-class MySideBarButton extends StatelessWidget {
-  const MySideBarButton({
-    super.key,
-    required this.press,
-  });
-  final VoidCallback press;
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: press,
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, top: 30),
-          padding: const EdgeInsetsDirectional.all(10),
-          height: 40,
-          width: 40,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                offset: Offset(0, 3),
-                blurRadius: 8,
-              ),
-            ],
-          ),
-          child: Image.asset(
-            myHomePageBottomSideBarIcon,
-            height: 32,
-            width: 32,
-          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_project_1/src/apis/api.dart';
+import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homescreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
@@ -22,13 +23,13 @@ class _splash_screenState extends State<splash_screen> {
     Future.delayed(const Duration(seconds: 4), () {
       //exit fullscreen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.white,
-          statusBarColor: Colors
-              .white)); //need it to be transparent in both light&dark themes
+      // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      //     systemNavigationBarColor: Colors.transparent,
+      //     statusBarColor: Colors
+      //         .black)); //need it to be transparent in both light&dark themes
       if (APIs.auth.currentUser != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const homeScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => const HomeDrawerScreen()));
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (_) => const onBoardingScreen()));

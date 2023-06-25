@@ -4,8 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/features/authentication/screens/profilescreen/profileScreen.dart';
 
-import '../../../../../constants/image_strings.dart';
-
+import '../../../../constants/image_strings.dart';
 import '../Not_Used_homescreen.dart';
 
 class HomePageBody extends StatefulWidget {

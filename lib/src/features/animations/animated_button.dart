@@ -6,7 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
-import 'package:mini_project_1/src/features/authentication/screens/welcome_screen/welcome_screen.dart';
+
+import '../core/welcome_screen/welcome_screen.dart';
 
 class MyAnimatedButton extends StatefulWidget {
   const MyAnimatedButton({super.key});

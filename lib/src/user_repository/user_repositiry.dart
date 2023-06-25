@@ -17,7 +17,8 @@ class UserRepository extends GetxController {
   // we want "Users" collection to "add something"
   // i,.e a document of users
   // we need to convert the usermodel to map of string and dybamic
-  // that means to convert to json
+  // that means to convert to jso
+  // Step 1 - Store User in Firebase
   createUser(UserModel user) async {
     // await is going to waiit for this query to complete
     await _db.collection("Users").add(user.toJson()).whenComplete(() {
@@ -36,5 +37,26 @@ class UserRepository extends GetxController {
         print(error.toString());
       },
     );
+  }
+
+  // Step 2 - Fetch All User Or User details
+  //  for single record
+  Future<UserModel> getUserDetails(String email) async {
+    final snapshot =
+        await _db.collection("Users").where("Email", isEqualTo: email).get();
+    //  now we have the data inside the snapshot
+    // then we need to map the data to convert it to document snapshot then to list or to single records
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    return userData;
+  }
+
+  //  for multiple record
+  Future<List<UserModel>> getallUsers() async {
+    final snapshot = await _db.collection("Users").get();
+    //  now we have the data inside the snapshot
+    // then we need to map the data to convert it to document snapshot then to list or to single records
+    final userData =
+        snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
+    return userData;
   }
 }

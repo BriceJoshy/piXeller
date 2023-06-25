@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_1/src/features/authentication/screens/splash_screen/splashscreen.dart';
+import 'package:mini_project_1/src/features/core/splash_screen/splashscreen.dart';
 import 'package:mini_project_1/src/utils/themes/theme.dart';
 import 'firebase_options.dart';
 

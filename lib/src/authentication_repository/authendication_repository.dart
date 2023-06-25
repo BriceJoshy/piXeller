@@ -1,12 +1,10 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
-import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
 import 'exceptions/signup_mail_password_failure.dart';
@@ -17,6 +15,7 @@ class AuthenticationRepository extends GetxController {
 
   final _auth = APIs.auth;
   late final Rx<User?> firebaseUser;
+  var verificationId = ''.obs;
 
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
@@ -28,6 +27,44 @@ class AuthenticationRepository extends GetxController {
     }
 
     ever(firebaseUser, _setInitialScreen);
+  }
+
+  _setInitialScreen(User? user) {
+    user == null
+        ? Get.offAll(() => const onBoardingScreen())
+        : Get.offAll(() => HomeDrawerScreen());
+  }
+
+  Future<void> phoneAuthentication(String phoneNo) async {
+    await _auth.verifyPhoneNumber(
+      //  passing the ph no to the query
+      // verificationCompleted function is executed when the phone requesting is the same phone signing in
+      //
+      phoneNumber: phoneNo,
+      verificationCompleted: (credential) async {
+        await _auth.signInWithCredential(credential);
+      },
+      codeSent: (verificationId, resendToken) {
+        this.verificationId.value = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        this.verificationId.value = verificationId;
+      },
+      verificationFailed: (e) {
+        if (e.code == 'invalid-phone-number') {
+          Get.snackbar("Error", "The provided phone number is not valid.");
+        } else {
+          Get.snackbar("Error", "Something went wrong. Try again.");
+        }
+      },
+    );
+  }
+
+  Future<bool> verifyOTP(String otp) async {
+    var credentials = await _auth.signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: verificationId.value, smsCode: otp));
+    return credentials.user != null ? true : false;
   }
 
   Future<void> createUserWithEmailAndPassword(

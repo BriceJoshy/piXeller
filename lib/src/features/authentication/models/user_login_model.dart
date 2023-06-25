@@ -1,10 +1,10 @@
 class UserModel {
   final String? id;
-  final role;
-  final fullname;
-  final phoneNo;
-  final email;
-  final password;
+  final String role;
+  final String fullname;
+  final String phoneNo;
+  final String email;
+  final String password;
 
   const UserModel(
       {this.id,

@@ -47,4 +47,4 @@ const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";
 // --FORGOT PASSWORD--
 
 const String forgotPasswordMailScreenicon = "assets/icons/forgot_password.png";
-// const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";
+const String forgotPasswordOTPicon = "assets/icons/otp.png";

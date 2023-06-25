@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_Screen.dart';
 
 import '../forgot_password_email/forgt_password_mail.dart';
 import 'forgetPasswordBtnWidget.dart';
@@ -36,6 +37,7 @@ class ForgetPasswordScreen {
               title: 'E-mail',
               subTitle: 'Reset via E-Mail Verification',
               onTap: () {
+                Navigator.pop(context);
                 Get.to(() => const ForgetPasswordMailScreen());
               },
             ),
@@ -46,7 +48,10 @@ class ForgetPasswordScreen {
               btnIcon: Icons.mobile_friendly_rounded,
               title: 'Phone No',
               subTitle: 'Reset via Phone Verification',
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Get.to(() => const OTPScreen());
+              },
             ),
           ],
         ),

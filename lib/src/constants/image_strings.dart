@@ -43,3 +43,8 @@ const String myHomePageBottomHistoryIcon = "assets/gifs/history.gif";
 const String myHomePageBottomAccountIcon = "assets/gifs/account.gif";
 const String myHomePageBottomSettingsIcon = "assets/gifs/settings.gif";
 const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";
+
+// --FORGOT PASSWORD--
+
+const String forgotPasswordMailScreenicon = "assets/icons/forgot_password.png";
+// const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";

@@ -11,6 +11,7 @@ import 'package:mini_project_1/src/features/authentication/screens/signinpage/si
 import 'package:rive/rive.dart';
 import '../../../../constants/image_strings.dart';
 import '../forgot_password/forgot_password_options/forgetPasswordBtnWidget.dart';
+import '../forgot_password/forgot_password_options/forgot_Password_model_bottom_sheet.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
   AnimatedLoginForm({Key? key}) : super(key: key);
@@ -341,50 +342,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        context: context,
-                        builder: (context) => Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 30, horizontal: 30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Make Selection!",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 23, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "Select one of the options given below to rest your password.",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              ForgetPasswordBtnWidget(
-                                btnIcon: Icons.mail_outlined,
-                                title: 'E-mail',
-                                subTitle: 'Reset via E-Mail Verification',
-                                onTap: () {},
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ForgetPasswordBtnWidget(
-                                btnIcon: Icons.mobile_friendly_rounded,
-                                title: 'Phone No',
-                                subTitle: 'Reset via Phone Verification',
-                                onTap: () {},
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      ForgetPasswordScreen.buildShowModelBottomSheet(context);
                     },
                     child: Text(
                       "Forgot Password",

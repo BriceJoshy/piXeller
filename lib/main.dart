@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mini_project_1/src/common_widgets/provider.dart';
 import 'package:mini_project_1/src/features/authentication/screens/splash_screen/splashscreen.dart';
 import 'package:mini_project_1/src/utils/themes/theme.dart';
@@ -30,13 +31,15 @@ class MyApp extends StatelessWidget {
     width = size.width;
     return ChangeNotifierProvider(
       create: (context) => TagProvider(),
-      child: MaterialApp(
+      child: GetMaterialApp(
         navigatorKey: navigatorKey,
         //  for light theme
         theme: MyAppTheme.lightTheme,
         darkTheme: MyAppTheme.darkTheme,
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
+        defaultTransition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
         home: const splash_screen(),
       ),
     );

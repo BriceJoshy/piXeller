@@ -20,16 +20,12 @@ class UserRepository extends GetxController {
   // that means to convert to json
   createUser(UserModel user) async {
     // await is going to waiit for this query to complete
-    await _db
-        .collection("Users")
-        .add(user.toJson())
-        .whenComplete(
-          () => Get.snackbar("Sucess", "YourAccount has been created.",
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green.withOpacity(0.1),
-              colorText: Colors.green),
-        )
-        .catchError(
+    await _db.collection("Users").add(user.toJson()).whenComplete(() {
+      Get.snackbar("Sucess", "YourAccount has been created.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.withOpacity(0.1),
+          colorText: Colors.green);
+    }).catchError(
       // ignore: avoid_types_as_parameter_names, body_might_complete_normally_catch_error, non_constant_identifier_names
       (error, StackTrace) {
         Get.snackbar("Error", "Some went wrong. Try again",

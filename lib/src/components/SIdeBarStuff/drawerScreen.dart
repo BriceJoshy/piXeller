@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/authentication_repository/authendication_repository.dart';
 import 'package:mini_project_1/src/components/configuration.dart';
 
@@ -79,18 +80,20 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 55,
               width: 150,
               child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    elevation: 0,
-                    shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  elevation: 0,
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  onPressed: () {
-                    AuthenticationRepository.instance.logout();
-                  },
-                  icon: const Icon(Icons.logout_outlined),
-                  label: const Text("LogOut")),
+                ),
+                onPressed: () async {
+                  AuthenticationRepository.instance.logout();
+                  // firebaseUser = await await _auth.currentUser();
+                },
+                icon: const Icon(Icons.logout_outlined),
+                label: const Text("LogOut"),
+              ),
             ),
           )
         ],

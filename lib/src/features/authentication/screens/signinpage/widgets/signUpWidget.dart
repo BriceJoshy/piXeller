@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
 import 'package:mini_project_1/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_Screen.dart';
 
 import '../../../controllers/sign_in_controller.dart';
@@ -144,9 +145,19 @@ class _signUpWidgetState extends State<signUpWidget> {
                   // SignUpController.instance.registerUser(
                   //     controller.email.text.trim(),
                   //     controller.password.text.trim());
-                  SignUpController.instance
-                      .phoneAuthentication(controller.phoneNo.text.trim());
-                  Get.to(const OTPScreen());
+                  // /*###### phone authentication ######*/
+                  // // SignUpController.instance
+                  // //     .phoneAuthentication(controller.phoneNo.text.trim());
+                  // // Get.to(const OTPScreen());
+
+                  final user = UserModel(
+                    role: Dropdownvalue,
+                    fullname: controller.fullName.text.trim(),
+                    phoneNo: controller.phoneNo.text.trim(),
+                    email: controller.email.text.trim(),
+                    password: controller.password.text.trim(),
+                  );
+                  SignUpController.instance.createUser(user);
                 }
               },
               child: Container(

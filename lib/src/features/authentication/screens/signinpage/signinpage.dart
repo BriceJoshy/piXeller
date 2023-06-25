@@ -2,9 +2,12 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
+import 'package:mini_project_1/src/features/authentication/controllers/sign_in_controller.dart';
 import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/widgets/signUpWidget.dart';
@@ -120,32 +123,6 @@ class _SignInPageState extends State<SignInPage> {
                   signUpWidget(),
                   const SizedBox(
                     height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: InkWell(
-                      onTap: () {
-                        // signInFunction();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 400,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Sign In",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),

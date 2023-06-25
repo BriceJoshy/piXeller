@@ -5,6 +5,8 @@ import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
+import 'exceptions/signup_mail_password_failure.dart';
+
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
@@ -29,6 +31,9 @@ class AuthenticationRepository extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      // ignore: avoid_print
+      print("FIREBASE AUTH EXCEPTION - ${ex.message}");
     } catch (_) {}
   }
 

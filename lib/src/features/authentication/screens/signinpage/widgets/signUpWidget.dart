@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../controllers/sign_in_controller.dart';
+
+var Dropdownvalue;
 
 class signUpWidget extends StatefulWidget {
   signUpWidget({
@@ -14,9 +21,12 @@ class _signUpWidgetState extends State<signUpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final _formKey = GlobalKey<FormState>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -37,6 +47,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
+                  Dropdownvalue = dropdownValue;
                 });
               },
               items: <String>['Producer', 'Distributer']
@@ -54,6 +65,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
+              controller: controller.fullName,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Full Name",
@@ -73,6 +85,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
+              controller: controller.phoneNo,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Phone No",
@@ -88,6 +101,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
+              controller: controller.email,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Email",
@@ -103,6 +117,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
+              controller: controller.password,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Password",
@@ -117,7 +132,36 @@ class _signUpWidgetState extends State<signUpWidget> {
                   )
                   // iconColor: Colors.black),
                   ),
-            )
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            GestureDetector(
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  SignUpController.instance.registerUser(
+                      controller.email.text.trim(),
+                      controller.password.text.trim());
+                }
+              },
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    "Sign In",
+                    style: GoogleFonts.poppins(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

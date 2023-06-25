@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controllers/sign_in_controller.dart';
 
+final _formKey = GlobalKey<FormState>();
 var Dropdownvalue;
 
 class signUpWidget extends StatefulWidget {
@@ -22,7 +23,7 @@ class _signUpWidgetState extends State<signUpWidget> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
-    final _formKey = GlobalKey<FormState>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Form(

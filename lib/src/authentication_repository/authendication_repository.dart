@@ -1,14 +1,19 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
+import 'package:mini_project_1/src/features/authentication/screens/login_page/login_page.dart';
 import 'package:mini_project_1/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 
 import 'exceptions/signup_mail_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {
-  static AuthenticationRepository get instance => Get.find();
+  static AuthenticationRepository get instance =>
+      Get.put(AuthenticationRepository());
 
   final _auth = APIs.auth;
   late final Rx<User?> firebaseUser;
@@ -18,7 +23,7 @@ class AuthenticationRepository extends GetxController {
     firebaseUser.bindStream(_auth.userChanges());
     _setInitialScreen(User? user) {
       user == null
-          ? Get.offAll(() => const onBoardingScreen())
+          ? Get.offAll(() => AnimatedLoginForm())
           : Get.offAll(() => const HomeDrawerScreen());
     }
 
@@ -30,11 +35,19 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      // to redirect user
+      firebaseUser.value != null
+          ? Get.offAll(() => const HomeDrawerScreen())
+          : Get.to(() => const onBoardingScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      // ignore: avoid_print
+
       print("FIREBASE AUTH EXCEPTION - ${ex.message}");
-    } catch (_) {}
+    } catch (_) {
+      const ex = SignUpWithEmailAndPasswordFailure();
+      print("EXCEPTION - ${ex.message}");
+      throw ex;
+    }
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {

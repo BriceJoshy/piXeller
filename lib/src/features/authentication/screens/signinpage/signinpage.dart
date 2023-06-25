@@ -1,15 +1,5 @@
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/apis/api.dart';
-import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
-import 'package:mini_project_1/src/features/authentication/controllers/sign_in_controller.dart';
-import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/widgets/signUpWidget.dart';
 import '../../../../constants/image_strings.dart';
 

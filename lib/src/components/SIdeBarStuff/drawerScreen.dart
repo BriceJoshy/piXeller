@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/authentication_repository/authendication_repository.dart';
 import 'package:mini_project_1/src/components/configuration.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -85,9 +86,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
-                  icon: Icon(Icons.logout_outlined),
-                  label: Text("LogOut")),
+                  onPressed: () {
+                    AuthenticationRepository.instance.logout();
+                  },
+                  icon: const Icon(Icons.logout_outlined),
+                  label: const Text("LogOut")),
             ),
           )
         ],

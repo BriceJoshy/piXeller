@@ -14,7 +14,16 @@ class SignUpController extends GetxController {
   final role = Dropdownvalue;
 
   void registerUser(String email, String password) {
-    AuthenticationRepository.instance
-        .createUserWithEmailAndPassword(email, password);
+    String? error = AuthenticationRepository.instance
+        .createUserWithEmailAndPassword(email, password) as String?;
+    if (error != null) {
+      Get.showSnackbar(
+        GetSnackBar(message: error.toString()),
+      );
+    }
+  }
+
+  void phoneAuthentication(String phoneNo) {
+    AuthenticationRepository.instance.phoneAuthentication(phoneNo);
   }
 }

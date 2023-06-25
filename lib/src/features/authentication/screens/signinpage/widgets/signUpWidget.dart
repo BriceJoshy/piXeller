@@ -140,9 +140,11 @@ class _signUpWidgetState extends State<signUpWidget> {
             GestureDetector(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  SignUpController.instance.registerUser(
-                      controller.email.text.trim(),
-                      controller.password.text.trim());
+                  // SignUpController.instance.registerUser(
+                  //     controller.email.text.trim(),
+                  //     controller.password.text.trim());
+                  SignUpController.instance
+                      .phoneAuthentication(controller.phoneNo.text.trim());
                 }
               },
               child: Container(

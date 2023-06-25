@@ -1,14 +1,18 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/common_widgets/mydropdownmenu.dart';
+import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
 import 'package:mini_project_1/src/features/authentication/screens/homescreen/Not_Used_homescreen.dart';
+import 'package:mini_project_1/src/features/authentication/screens/signinpage/widgets/signUpWidget.dart';
 import '../../../../constants/image_strings.dart';
 
 String selectedRole = "Role";
 List<String> myList = ["Distributer", "Producer"];
+String occupation = "";
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -18,15 +22,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    selectedRole = "Role";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,115 +105,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      children: [
-                        MyDropDown(myList: myList, isEdit: false),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(143, 148, 251, .3),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            cursorColor: const Color(0xffb04863),
-                            decoration: InputDecoration(
-                              prefixIcon: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: Image(
-                                  image: AssetImage(mySignInPageNameIcon),
-                                ),
-                              ),
-                              border: InputBorder.none,
-                              hintText: "Name",
-                              hintStyle: TextStyle(color: Colors.grey.shade400),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(143, 148, 251, .3),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: TextField(
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(fontSize: 14),
-                            cursorColor: const Color(0xffb04863),
-                            decoration: InputDecoration(
-                              prefixIcon: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: Image(
-                                  image: AssetImage(mySignInPageEmailIcon),
-                                ),
-                              ),
-                              border: InputBorder.none,
-                              hintText: "Email",
-                              hintStyle: TextStyle(color: Colors.grey.shade400),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(143, 148, 251, .3),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: TextField(
-                            controller: passwordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: true,
-                            style: const TextStyle(fontSize: 14),
-                            cursorColor: const Color(0xffb04863),
-                            decoration: InputDecoration(
-                              prefixIcon: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: Image(
-                                  image: AssetImage(
-                                    mySignInPagePasswordIcon,
-                                  ),
-                                  height: 20,
-                                ),
-                              ),
-                              border: InputBorder.none,
-                              hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey.shade400),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const signUpWidget(),
                   const SizedBox(
                     height: 30,
                   ),
@@ -226,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: InkWell(
                       onTap: () {
-                        signInFunction();
+                        // signInFunction();
                       },
                       child: Container(
                         height: 50,
@@ -257,23 +144,23 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Future signInFunction() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    try {
-      await APIs.auth.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => homeScreen()));
-    } on FirebaseAuthException catch (e) {
-      print(e);
-    }
-    // navigatorKey.currentState!.popUntil((route) {homeScreen();});
-  }
+  // Future signInFunction() async {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  //   try {
+  //     await APIs.auth.createUserWithEmailAndPassword(
+  //         email: emailController.text.trim(),
+  //         password: passwordController.text.trim());
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (_) => homeScreen()));
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e);
+  //   }
+  // navigatorKey.currentState!.popUntil((route) {homeScreen();});
+  // }
 }

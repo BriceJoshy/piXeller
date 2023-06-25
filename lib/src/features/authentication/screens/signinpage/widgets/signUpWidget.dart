@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_Screen.dart';
 
 import '../../../controllers/sign_in_controller.dart';
 
@@ -89,7 +90,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               controller: controller.phoneNo,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
-                  labelText: "Phone No",
+                  labelText: "Phone No (with +91)",
                   prefixIcon: Icon(Icons.phone, color: Colors.black),
                   border: OutlineInputBorder(),
                   labelStyle: TextStyle(color: Colors.black),
@@ -145,6 +146,7 @@ class _signUpWidgetState extends State<signUpWidget> {
                   //     controller.password.text.trim());
                   SignUpController.instance
                       .phoneAuthentication(controller.phoneNo.text.trim());
+                  Get.to(const OTPScreen());
                 }
               },
               child: Container(

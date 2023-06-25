@@ -82,7 +82,10 @@ class OTPScreen extends StatelessWidget {
                       ),
                       backgroundColor: Colors.black87,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // incase if it doesnt work
+                      OTPController.instance.verifyOTP(otp);
+                    },
                     child: Text(
                       "Next",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.w600),

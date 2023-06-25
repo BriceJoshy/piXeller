@@ -20,19 +20,13 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    _setInitialScreen(User? user) {
-      user == null
-          ? Get.offAll(() => AnimatedLoginForm())
-          : Get.offAll(() => const HomeDrawerScreen());
-    }
+    // _setInitialScreen(User? user) {
+    //   user == null
+    //       ? Get.offAll(() => AnimatedLoginForm())
+    //       : Get.offAll(() => const HomeDrawerScreen());
+    // }
 
-    ever(firebaseUser, _setInitialScreen);
-  }
-
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const onBoardingScreen())
-        : Get.offAll(() => HomeDrawerScreen());
+    // ever(firebaseUser, _setInitialScreen);
   }
 
   Future<void> phoneAuthentication(String phoneNo) async {

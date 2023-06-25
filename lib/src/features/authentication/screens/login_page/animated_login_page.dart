@@ -3,14 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
-import 'package:mini_project_1/src/features/authentication/screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
 import '../../../../constants/image_strings.dart';
-import '../forgot_password/forgot_password_options/forgetPasswordBtnWidget.dart';
+import '../../../core/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import '../forgot_password/forgot_password_options/forgot_Password_model_bottom_sheet.dart';
 
 class AnimatedLoginForm extends StatefulWidget {

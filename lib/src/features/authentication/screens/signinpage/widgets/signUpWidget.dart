@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class signUpWidget extends StatelessWidget {
-  const signUpWidget({
+class signUpWidget extends StatefulWidget {
+  signUpWidget({
     super.key,
   });
+
+  @override
+  State<signUpWidget> createState() => _signUpWidgetState();
+}
+
+class _signUpWidgetState extends State<signUpWidget> {
+  String dropdownValue = 'Producer';
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +20,39 @@ class signUpWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            DropdownButtonFormField(
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.work,
+                  color: Colors.black,
+                ),
+                label: Text("Role"),
+                labelStyle: TextStyle(color: Colors.black),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2),
+                ),
+              ),
+              value: dropdownValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <String>['Producer', 'Distributer']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             TextFormField(
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),

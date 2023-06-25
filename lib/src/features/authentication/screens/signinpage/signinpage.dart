@@ -10,6 +10,8 @@ import 'package:mini_project_1/src/features/authentication/screens/homescreen/No
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/widgets/signUpWidget.dart';
 import '../../../../constants/image_strings.dart';
 
+var size, height_mq, width_mq;
+
 String selectedRole = "Role";
 List<String> myList = ["Distributer", "Producer"];
 String occupation = "";
@@ -24,6 +26,9 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    height_mq = size.height;
+    width_mq = size.width;
     return Scaffold(
       backgroundColor: const Color(0xffd6e2ea),
       body: SingleChildScrollView(
@@ -31,8 +36,15 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             Container(
               color: Colors.transparent,
-              height: 820,
+              height: height_mq * 1.05,
               width: double.infinity,
+            ),
+            Positioned(
+              child: Container(
+                color: Colors.transparent,
+                height: 820,
+                width: double.infinity,
+              ),
             ),
             Positioned(
               child: Container(
@@ -105,7 +117,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const signUpWidget(),
+                  signUpWidget(),
                   const SizedBox(
                     height: 30,
                   ),

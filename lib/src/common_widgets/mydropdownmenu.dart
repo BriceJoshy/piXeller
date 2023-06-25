@@ -9,7 +9,12 @@ import '../features/authentication/screens/signinpage/signinpage.dart';
 class MyDropDown extends StatefulWidget {
   final List<String> myList;
   final bool isEdit;
-  const MyDropDown({Key? key, required this.myList, required this.isEdit})
+  final Function(String) onValueChanged;
+  const MyDropDown(
+      {Key? key,
+      required this.myList,
+      required this.isEdit,
+      required this.onValueChanged})
       : super(key: key);
 
   @override
@@ -17,6 +22,7 @@ class MyDropDown extends StatefulWidget {
 }
 
 class _MyDropDownState extends State<MyDropDown> {
+  String selectedValue = '';
   late bool isFont = editCheck();
 
   editCheck() {
@@ -94,9 +100,11 @@ class _MyDropDownState extends State<MyDropDown> {
               onChanged: (value) {
                 setState(() {
                   isFont = true;
+                  selectedValue = value!; // Assign the selected value
                 });
                 tagProvider.changeMenu();
                 selectedRole = value!;
+                widget.onValueChanged(selectedValue);
               }),
         ),
       ),

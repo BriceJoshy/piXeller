@@ -1,9 +1,9 @@
 class UserModel {
   final String? id;
-  final String occupation;
-  final String fullname;
-  final String email;
-  final String password;
+  final occupation;
+  final fullname;
+  final email;
+  final password;
 
   const UserModel(
       {this.id,

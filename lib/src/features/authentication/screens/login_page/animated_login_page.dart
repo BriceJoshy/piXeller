@@ -109,6 +109,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: const Color(0xffd6e2ea),
       body: SingleChildScrollView(
         child: Stack(
@@ -203,84 +204,80 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                     ),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 400,
-                      padding: const EdgeInsets.only(
-                          top: 5, left: 5, right: 5, bottom: 10),
-                      // margin: const EdgeInsets.only(bottom: 15 * 4),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color.fromRGBO(143, 148, 251, .3),
-                                blurRadius: 20,
-                                offset: Offset(0, 10))
-                          ]),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade100),
-                              ),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: emailController,
+                          onTap: lookOnTheTextField,
+                          onChanged: moveEyeBalls,
+                          keyboardType: TextInputType.emailAddress,
+                          cursorColor: Colors.black,
+                          style: GoogleFonts.poppins(fontSize: 14),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelStyle:
+                                GoogleFonts.poppins(color: Colors.black54),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 2.0),
                             ),
-                            child: TextField(
-                              controller: emailController,
-                              onTap: lookOnTheTextField,
-                              onChanged: moveEyeBalls,
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(fontSize: 14),
-                              cursorColor: const Color(0xffb04863),
-                              decoration: InputDecoration(
-                                prefixIcon: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
-                                  child: SvgPicture.asset(myLoginPageEmailIcon),
-                                ),
-                                border: InputBorder.none,
-                                hintText: "Email",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
-                              ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 3.0, color: Colors.black)),
+                            contentPadding: const EdgeInsets.all(25),
+                            prefixIcon: const Icon(
+                              Icons.mail,
+                              color: Colors.black,
                             ),
+                            label: Text(
+                              "Email",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            hintText: "Email",
+                            hintStyle: GoogleFonts.poppins(
+                                color: Colors.grey.shade400),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade100),
-                              ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: passwordController,
+                          onTap: handsOnTheEyes,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          cursorColor: Colors.black,
+                          style: GoogleFonts.poppins(fontSize: 14),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(25),
+                            prefixIcon: const Icon(
+                              Icons.password_rounded,
+                              color: Colors.black,
                             ),
-                            child: TextField(
-                              controller: passwordController,
-                              onTap: handsOnTheEyes,
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: true,
-                              style: const TextStyle(fontSize: 14),
-                              cursorColor: const Color(0xffb04863),
-                              decoration: InputDecoration(
-                                prefixIcon: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
-                                  child:
-                                      SvgPicture.asset(myLoginPagePasswordIcon),
-                                ),
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
-                              ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 2.0),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 3.0, color: Colors.black)),
+                            label: Text(
+                              "Password",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            hintText: "Password",
+                            hintStyle: GoogleFonts.poppins(
+                                color: Colors.grey.shade400),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 70,
                   ),
                   InkWell(
                     onTap: () {
@@ -311,7 +308,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 25,
                   ),
                   RichText(
                     text: TextSpan(
@@ -321,7 +318,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                         const TextSpan(text: "Don't have an Account? "),
                         TextSpan(
                           text: "SignIn",
-                          style: const TextStyle(color: Colors.blue),
+                          style: GoogleFonts.poppins(color: Colors.blue),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -335,6 +332,22 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                 ],
               ),
             ),
+            Positioned(
+              bottom: 120,
+              right: 30,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Forgot Password",
+                      style: GoogleFonts.poppins(color: Colors.blue),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

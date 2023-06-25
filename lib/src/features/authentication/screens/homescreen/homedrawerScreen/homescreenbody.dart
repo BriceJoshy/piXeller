@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/screens/profilescreen/profileScreen.dart';
 
 import '../../../../../constants/image_strings.dart';
 
@@ -183,7 +186,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                       myHomePageBottomAccountIcon,
                       color: _selectedIndex == 3 ? Colors.white : Colors.grey,
                     ),
-                    onTap: () => _onItemTapped(3),
+                    onTap: () =>
+                        {_onItemTapped(3), Get.to(() => const ProfileScreen())},
                   ),
                   MyBottomNavigationBarIcons(
                     image: Image.asset(

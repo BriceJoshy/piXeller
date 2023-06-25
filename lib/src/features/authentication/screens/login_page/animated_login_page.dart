@@ -10,6 +10,7 @@ import 'package:mini_project_1/src/features/authentication/screens/homescreen/ho
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
 import '../../../../constants/image_strings.dart';
+import '../forgot_password/forgot_password_options/forgetPasswordBtnWidget.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
   AnimatedLoginForm({Key? key}) : super(key: key);
@@ -217,7 +218,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                             border: const OutlineInputBorder(),
                             labelStyle:
                                 GoogleFonts.poppins(color: Colors.black54),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.black, width: 2.0),
                             ),
@@ -276,7 +277,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 70,
                   ),
                   InkWell(
@@ -339,7 +340,52 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        context: context,
+                        builder: (context) => Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 30, horizontal: 30),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Make Selection!",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 23, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Select one of the options given below to rest your password.",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              ForgetPasswordBtnWidget(
+                                btnIcon: Icons.mail_outlined,
+                                title: 'E-mail',
+                                subTitle: 'Reset via E-Mail Verification',
+                                onTap: () {},
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ForgetPasswordBtnWidget(
+                                btnIcon: Icons.mobile_friendly_rounded,
+                                title: 'Phone No',
+                                subTitle: 'Reset via Phone Verification',
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                     child: Text(
                       "Forgot Password",
                       style: GoogleFonts.poppins(color: Colors.blue),
@@ -377,7 +423,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => HomeDrawerScreen(),
+                  builder: (_) => const HomeDrawerScreen(),
                 ),
               );
             },
@@ -386,6 +432,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
       );
     } on FirebaseAuthException catch (e) {
       loginFailed();
+      // ignore: avoid_print
       print(e);
     }
     // navigatorKey.currentState!.popUntil((route) => route.isFirst);

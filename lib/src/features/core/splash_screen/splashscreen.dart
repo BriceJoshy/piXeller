@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 
 import '../homescreen/homedrawerScreen/homedrawerScreen.dart';
@@ -41,9 +42,14 @@ class _splash_screenState extends State<splash_screen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          children: [
+            Text("piXeller", style: GoogleFonts.poppins()),
+            CircularProgressIndicator(),
+          ],
+        ),
       ),
       // body: Stack(
       //   children: [

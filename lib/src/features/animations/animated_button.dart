@@ -81,9 +81,11 @@ class _MyAnimatedButtonState extends State<MyAnimatedButton> {
                   child: Column(
                     children: [
                       Container(
-                        height: 50,
-                        width: 50,
-                        color: Colors.orange,
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(
+                          "assets/logo/logo.png",
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(

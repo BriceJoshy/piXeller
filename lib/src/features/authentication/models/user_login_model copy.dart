@@ -8,7 +8,7 @@ class UserModel {
   final String email;
   final String password;
 
-  UserModel(
+  const UserModel(
       {this.id,
       required this.role,
       required this.fullname,

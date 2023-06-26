@@ -31,7 +31,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const HomePageBody(),
+      // body: const HomePageBody(),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       extendBody: true,

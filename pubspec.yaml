@@ -55,6 +55,9 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   dropdown_search: ^5.0.6
   flutter_otp_text_field: ^1.1.1
+  image_picker: ^0.8.9
+  cached_network_image: ^3.2.3
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +89,7 @@ flutter:
     - assets/icons/
     - assets/gifs/
     - assets/RiveAssets/
+    - assets/logo/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

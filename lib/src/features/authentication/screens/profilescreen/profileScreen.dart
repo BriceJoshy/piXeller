@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
-import 'package:mini_project_1/src/features/core_Screens/controllers/profile_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,7 +14,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileController());
+    // final controller = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
@@ -41,14 +40,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Container(
           padding: const EdgeInsets.all(20),
           child: FutureBuilder(
-            future: controller.getUserData(),
+            // future: controller.getUserData(),
             builder: (context, snapshot) {
               // if the data is
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  UserModel userData = snapshot.data as UserModel;
-                  final fullname =
-                      TextEditingController(text: userData.fullname);
+                  AppUser userData = snapshot.data as AppUser;
+                  final fullname = TextEditingController(text: userData.name);
                   final email = TextEditingController(text: userData.email);
                   final phoneNo = TextEditingController(text: userData.phoneNo);
                   final password =
@@ -199,15 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     backgroundColor: const Color(0xff3a4054)),
-                                onPressed: () async {
-                                  final userData = UserModel(
-                                      email: email.text.trim(),
-                                      fullname: fullname.text.trim(),
-                                      password: password.text.trim(),
-                                      phoneNo: phoneNo.text.trim(),
-                                      role: "");
-                                  await controller.updateRecord(userData);
-                                },
+                                onPressed: () async {},
                                 child: const Text("Edit Profile"),
                               ),
                             ),

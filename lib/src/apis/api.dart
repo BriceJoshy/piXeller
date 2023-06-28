@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
 
 import '../features/authentication/models/user_login_model.dart';
+import '../repository/authentication_repository/authendication_repository.dart';
 
 class APIs {
   // the following are the objects made
@@ -59,6 +60,12 @@ class APIs {
     );
   }
 
+  // Get phone no from user and pass it to auth repository for fireabase authentication
+
+  void phoneAuthentication(String phoneNo) {
+    AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+  }
+
   // for creating a new user
   static Future<void> createUser() async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
@@ -66,7 +73,7 @@ class APIs {
       id: user.uid,
       role: '',
       userType: '',
-      name: '',
+      fullname: '',
       phoneNo: '',
       email: '',
       password: '',
@@ -86,7 +93,7 @@ class APIs {
   // for updating user information
   static Future<void> updateUserInfo() async {
     await firestore.collection('Users').doc(user.uid).update({
-      'name': me.name,
+      'name': me.fullname,
       'about': me.about,
       'phoneNo': me.phoneNo,
       'email': me.email,

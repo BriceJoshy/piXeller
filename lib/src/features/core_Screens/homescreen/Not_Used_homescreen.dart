@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import '../../../constants/image_strings.dart';
-import 'homedrawerScreen/homescreenbody.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);

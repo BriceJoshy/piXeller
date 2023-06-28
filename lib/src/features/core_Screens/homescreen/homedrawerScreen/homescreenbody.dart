@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/features/core_Screens/bidding_pade/bidding%20page.dart';
 
 import '../../../../common_widgets/Filter_categories_widget.dart';
 import '../../../../components/Add-Items/Page_for_add_items.producer.dart';
@@ -28,14 +26,6 @@ class _HomePageBodyState extends State<HomePageBody> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  late Stream<QuerySnapshot> _itemStream;
-
-  @override
-  void initState() {
-    super.initState();
-    _itemStream = FirebaseFirestore.instance.collection('ItemList').snapshots();
   }
 
   @override

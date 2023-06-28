@@ -3,7 +3,7 @@ class AppUser {
     required this.id,
     required this.role,
     required this.userType,
-    required this.name,
+    required this.fullname,
     required this.phoneNo,
     required this.email,
     required this.password,
@@ -14,7 +14,7 @@ class AppUser {
   late String id;
   late String role;
   late String userType;
-  late String name;
+  late String fullname;
   late String phoneNo;
   late String email;
   late String password;
@@ -28,7 +28,7 @@ class AppUser {
     id = json['id'] ?? '';
     role = json['role'] ?? '';
     userType = json['userType'] ?? '';
-    name = json['name'] ?? '';
+    fullname = json['fullname'] ?? '';
     phoneNo = json['phoneNo'] ?? '';
     email = json['email'] ?? '';
     password = json['password'] ?? '';
@@ -43,7 +43,7 @@ class AppUser {
     data['id'] = id;
     data['role'] = role;
     data['userType'] = userType;
-    data['name'] = name;
+    data['fullname'] = fullname;
     data['phoneNo'] = phoneNo;
     data['email'] = email;
     data['password'] = password;

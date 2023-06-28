@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
-import 'package:mini_project_1/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_Screen.dart';
 
-import '../../../controllers/sign_in_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/core_Screens/on_boarding/on_boarding_screen.dart';
+
+import '../../../../../repository/authentication_repository/authendication_repository.dart';
+import '../../../models/user_login_model.dart';
+import '../../forgot_password/forgot_password_otp/otp_Screen.dart';
 
 final _formKey = GlobalKey<FormState>();
 var Dropdownvalue;
+var userType;
 
 class signUpWidget extends StatefulWidget {
   signUpWidget({
@@ -20,11 +24,16 @@ class signUpWidget extends StatefulWidget {
 }
 
 class _signUpWidgetState extends State<signUpWidget> {
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
   String dropdownValue = 'Producer';
+  final TextEditingController _fullnameController = TextEditingController();
+  final TextEditingController _phoneNoController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SignUpController());
+    // final controller = Get.put(SignUpController());
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -68,7 +77,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
-              controller: controller.fullName,
+              controller: _fullnameController,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Full Name",
@@ -88,7 +97,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
-              controller: controller.phoneNo,
+              controller: _phoneNoController,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Phone No (with +91)",
@@ -104,7 +113,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
-              controller: controller.email,
+              controller: _phoneNoController,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Email",
@@ -120,7 +129,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
-              controller: controller.password,
+              controller: _passwordController,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Password",
@@ -146,18 +155,11 @@ class _signUpWidgetState extends State<signUpWidget> {
                   //     controller.email.text.trim(),
                   //     controller.password.text.trim());
                   // /*###### phone authentication ######*/
-                  // // SignUpController.instance
-                  // //     .phoneAuthentication(controller.phoneNo.text.trim());
-                  // // Get.to(const OTPScreen());
-
-                  final user = UserModel(
-                    role: Dropdownvalue,
-                    fullname: controller.fullName.text.trim(),
-                    phoneNo: controller.phoneNo.text.trim(),
-                    email: controller.email.text.trim(),
-                    password: controller.password.text.trim(),
-                  );
-                  SignUpController.instance.createUser(user);
+                  AuthenticationRepository.instance
+                      .phoneAuthentication(_phoneNoController.text.trim());
+                  Get.to(const OTPScreen());
+                  createUser();
+                  // SignUpController.instance.createUser(user);
                 }
               },
               child: Container(
@@ -182,5 +184,33 @@ class _signUpWidgetState extends State<signUpWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> createUser() async {
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+    if (Dropdownvalue == "producer") {
+      userType = 0;
+    } else {
+      userType = 1;
+    }
+    final newAppUser = AppUser(
+      id: _fullnameController.text.trim() + _phoneNoController.text.trim(),
+      role: Dropdownvalue,
+      userType: userType,
+      fullname: _fullnameController.text.trim(),
+      phoneNo: _phoneNoController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+      about: "Hey I'm using piXeller .",
+      image: 'https://stock.adobe.com/search?k=person+icon',
+      createdAt: time,
+    );
+
+    // push this info above to the firebase to make document
+    // using the uid from the gmail login from firestore as the document id
+    return (await firestore
+        .collection('Users')
+        .doc(_fullnameController.text.trim())
+        .set(newAppUser.toJson()));
   }
 }

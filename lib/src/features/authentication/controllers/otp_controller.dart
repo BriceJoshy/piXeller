@@ -9,7 +9,7 @@ class OTPController extends GetxController {
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
     isVerified
         ? Get.offAll(() => const HomeDrawerScreen())
-        : Get.showSnackbar(GetSnackBar(
+        : Get.showSnackbar(const GetSnackBar(
             message: "Otp verification failed!",
           ));
   }

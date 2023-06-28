@@ -46,7 +46,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   AppUser userData = snapshot.data as AppUser;
-                  final fullname = TextEditingController(text: userData.name);
+                  final fullname =
+                      TextEditingController(text: userData.fullname);
                   final email = TextEditingController(text: userData.email);
                   final phoneNo = TextEditingController(text: userData.phoneNo);
                   final password =

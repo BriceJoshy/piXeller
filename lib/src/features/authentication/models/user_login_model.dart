@@ -1,43 +1,55 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+class AppUser {
+  AppUser({
+    required this.id,
+    required this.role,
+    required this.userType,
+    required this.name,
+    required this.phoneNo,
+    required this.email,
+    required this.password,
+    required this.image,
+    required this.about,
+    required this.createdAt,
+  });
+  late String id;
+  late String role;
+  late String userType;
+  late String name;
+  late String phoneNo;
+  late String email;
+  late String password;
+  late String image;
+  late String about;
+  late String createdAt;
 
-class UserModel {
-  final String? id;
-  final String role;
-  final String fullname;
-  final String phoneNo;
-  final String email;
-  final String password;
+  AppUser.fromJson(Map<String, dynamic> json) {
+    // if the value is null that is if not filled then return empty String ?? ''
 
-  UserModel(
-      {this.id,
-      required this.role,
-      required this.fullname,
-      required this.phoneNo,
-      required this.email,
-      required this.password});
-
-  toJson() {
-    return {
-      "Role": role,
-      "Fullname": fullname,
-      "Phone No": phoneNo,
-      "Email": email,
-      "Password": password,
-    };
+    id = json['id'] ?? '';
+    role = json['role'] ?? '';
+    userType = json['userType'] ?? '';
+    name = json['name'] ?? '';
+    phoneNo = json['phoneNo'] ?? '';
+    email = json['email'] ?? '';
+    password = json['password'] ?? '';
+    image = json['image'] ?? '';
+    about = json['about'] ?? '';
+    createdAt = json['created_at'] ?? '';
   }
 
-  /// Step 1-Map user fetched from Firebase to UserModel
-  factory UserModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
-    // fetch the data
-    final data = document.data()!;
-    return UserModel(
-      id: document.id,
-      role: data["Role"],
-      fullname: data["Fullname"],
-      phoneNo: data["Phone No"],
-      email: data["Email"],
-      password: data["Password"],
-    );
+  Map<String, dynamic> toJson() {
+    // no need to maje data private "_data"
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['role'] = role;
+    data['userType'] = userType;
+    data['name'] = name;
+    data['phoneNo'] = phoneNo;
+    data['email'] = email;
+    data['password'] = password;
+    data['image'] = image;
+    data['about'] = about;
+    data['created_at'] = createdAt;
+    return data;
   }
 }

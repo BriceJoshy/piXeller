@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/features/core/bidding_pade/bidding%20page.dart';
+import 'package:mini_project_1/src/features/core_Screens/bidding_pade/bidding%20page.dart';
 
 import '../../../../common_widgets/Filter_categories_widget.dart';
 import '../../../../components/Add-Items/Page_for_add_items.producer.dart';
 import '../../../../constants/image_strings.dart';
-import '../../../authentication/profilescreen/profileScreen.dart';
+import '../../../authentication/screens/profilescreen/profileScreen.dart';
 import '../Not_Used_homescreen.dart';
 
 class HomePageBody extends StatefulWidget {

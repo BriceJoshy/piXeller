@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/login_page/animated_login_page.dart';
-import '../features/core/homescreen/homedrawerScreen/homedrawerScreen.dart';
-import '../features/core/on_boarding/on_boarding_screen.dart';
+import '../../features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
+import '../../features/core_Screens/on_boarding/on_boarding_screen.dart';
 import 'exceptions/signup_mail_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {

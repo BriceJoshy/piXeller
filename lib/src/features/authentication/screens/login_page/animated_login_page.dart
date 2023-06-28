@@ -8,7 +8,7 @@ import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 import 'package:rive/rive.dart';
 import '../../../../constants/image_strings.dart';
-import '../../../core/homescreen/homedrawerScreen/homedrawerScreen.dart';
+import '../../../core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import '../forgot_password/forgot_password_options/forgot_Password_model_bottom_sheet.dart';
 
 class AnimatedLoginForm extends StatefulWidget {

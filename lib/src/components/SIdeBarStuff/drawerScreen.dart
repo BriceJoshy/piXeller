@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
-import 'package:mini_project_1/src/authentication_repository/authendication_repository.dart';
+import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
 import 'package:mini_project_1/src/components/configuration.dart';
 
 class DrawerScreen extends StatefulWidget {

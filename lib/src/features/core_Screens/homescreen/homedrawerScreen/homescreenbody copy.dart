@@ -6,7 +6,7 @@ import 'package:mini_project_1/src/common_widgets/Filter_categories_widget.dart'
 import 'package:mini_project_1/src/components/Add-Items/Page_for_add_items.producer.dart';
 
 import '../../../../constants/image_strings.dart';
-import '../../../authentication/profilescreen/profileScreen.dart';
+import '../../../authentication/screens/profilescreen/profileScreen.dart';
 import '../Not_Used_homescreen.dart';
 
 class HomePageBody extends StatefulWidget {

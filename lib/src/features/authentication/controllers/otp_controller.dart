@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:mini_project_1/src/authentication_repository/authendication_repository.dart';
+import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
 
-import '../../core/homescreen/homedrawerScreen/homedrawerScreen.dart';
+import '../../core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 
 class OTPController extends GetxController {
   static OTPController get instance => Get.put(OTPController());

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/features/authentication/models/user_login_model.dart';
-import 'package:mini_project_1/src/features/core/controllers/profile_controller.dart';
+import 'package:mini_project_1/src/features/core_Screens/controllers/profile_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

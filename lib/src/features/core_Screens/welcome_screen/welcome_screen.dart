@@ -19,7 +19,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 80, 82, 88),
+      // backgroundColor: Color.fromARGB(255, 80, 82, 88),
       body: Stack(
         children: [
           Positioned(
@@ -61,7 +61,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          // color: Colors.white,
                           fontSize: 43,
                           height: 1.2,
                         ),
@@ -71,7 +71,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     Text(
                       "Our app serves as a powerful platform, bridging the gap between producers and distributors.",
                       style: GoogleFonts.poppins(
-                        color: Colors.white,
+                        // color: Colors.white,
                         textStyle: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),

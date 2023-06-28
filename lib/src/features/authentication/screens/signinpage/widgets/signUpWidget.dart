@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/apis/api.dart';
+import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/features/core_Screens/on_boarding/on_boarding_screen.dart';
 
 import '../../../../../repository/authentication_repository/authendication_repository.dart';
@@ -113,7 +117,7 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 10,
             ),
             TextFormField(
-              controller: _phoneNoController,
+              controller: _emailController,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(25),
                   labelText: "Email",
@@ -149,16 +153,59 @@ class _signUpWidgetState extends State<signUpWidget> {
               height: 30,
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (_formKey.currentState!.validate()) {
                   // SignUpController.instance.registerUser(
                   //     controller.email.text.trim(),
                   //     controller.password.text.trim());
                   // /*###### phone authentication ######*/
+                  // AuthenticationRepository.instance
+                  //     .phoneAuthentication(_phoneNoController.text.trim());
+                  // Get.to(const OTPScreen());
                   AuthenticationRepository.instance
-                      .phoneAuthentication(_phoneNoController.text.trim());
-                  Get.to(const OTPScreen());
-                  createUser();
+                      .createUserWithEmailAndPassword(
+                          _emailController.text.trim(),
+                          _passwordController.text.trim())
+                      .then(
+                        (value) async => await firestore
+                            .collection('Users')
+                            .doc(APIs.auth.currentUser!.uid)
+                            .get()
+                            .then(
+                          (user) async {
+                            if (user.exists) {
+                              Get.snackbar("User Already Exist",
+                                  "Please go to login page");
+                              APIs.me = AppUser.fromJson(user.data()!);
+                              // if user exits then, but we got the json data so we have to parse it
+                              log('My Data: ${user.data()}');
+                            } else {
+                              // create a new user
+                              // await because this funcion should wait for some time
+                              // getSelfInfo is like a loop
+                              await createUser()
+                                  .then((value) => {
+                                        Get.snackbar(
+                                            colorText: Colors.white,
+                                            backgroundColor: Colors.green,
+                                            "User Already Exist",
+                                            "Please go to login page")
+                                      })
+                                  .then((value) {
+                                Get.to(() => const HomeDrawerScreen());
+                              });
+                            }
+                          },
+                        ),
+                      )
+                      .onError((error, stackTrace) {
+                    Get.snackbar(
+                        colorText: Colors.white,
+                        backgroundColor: Colors.red,
+                        "User Already Exist$error",
+                        "Please go to login page");
+                  });
+
                   // SignUpController.instance.createUser(user);
                 }
               },
@@ -196,7 +243,7 @@ class _signUpWidgetState extends State<signUpWidget> {
     final newAppUser = AppUser(
       id: _fullnameController.text.trim() + _phoneNoController.text.trim(),
       role: Dropdownvalue,
-      userType: userType,
+      userType: userType.toString(),
       fullname: _fullnameController.text.trim(),
       phoneNo: _phoneNoController.text.trim(),
       email: _emailController.text.trim(),

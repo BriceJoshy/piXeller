@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,8 @@ import '../../../../apis/api.dart';
 import '../../../../common_widgets/Filter_categories_widget.dart';
 import '../../../../constants/image_strings.dart';
 import '../../../authentication/screens/profilescreen/profileScreen.dart';
+import '../../Add_item_producer_Screen/addItemListPage.dart';
+import '../../splash_screen/splashscreen.dart';
 import '../Not_Used_homescreen.dart';
 
 class HomePageBody extends StatefulWidget {
@@ -15,6 +19,9 @@ class HomePageBody extends StatefulWidget {
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
 }
+
+CollectionReference producerUser = APIs.firestore.collection("Users");
+DocumentReference reference = producerUser.doc(APIs.auth.currentUser!.uid);
 
 class _HomePageBodyState extends State<HomePageBody> {
   @override
@@ -37,6 +44,7 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
     return AnimatedContainer(
       transform: Matrix4.translationValues(xoffset, yoffset, 0)
         ..scale(scaleFactor),
@@ -76,13 +84,64 @@ class _HomePageBodyState extends State<HomePageBody> {
                         icon: const Icon(Icons.menu),
                       ),
                 const SizedBox(width: 80),
-                Text(
-                  "Hi! Brice Joshy",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                StreamBuilder<DocumentSnapshot>(
+                  stream: reference.snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("User not found",
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ));
+                    }
+                    if (snapshot.hasData) {
+                      DocumentSnapshot docSnapshot = snapshot.data!;
+                      String fieldData =
+                          (docSnapshot.get('fullname')).toString();
+                      return Text(
+                        "Hi! $fieldData",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }
+                    return const Text("Loading...");
+                  },
                 ),
-                const SizedBox(width: 80),
-                const CircleAvatar(
-                  child: Icon(Icons.person_2_rounded),
+                const SizedBox(width: 70),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(mq.height * .1),
+                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: reference.snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Icon(Icons.person_2_rounded);
+                      }
+                      if (snapshot.hasData) {
+                        DocumentSnapshot docSnapshot = snapshot.data!;
+                        String fieldData =
+                            (docSnapshot.get('image')).toString();
+                        return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Profile_Screen(user: APIs.me),
+                                  ));
+                            },
+                            child: CachedNetworkImage(
+                                width: screenHeight * .055,
+                                height: screenHeight * .055,
+                                fit: BoxFit.cover,
+                                imageUrl: fieldData));
+                      }
+                      return const Text("Loading...");
+                    },
+                  ),
                 )
               ],
             ),
@@ -147,56 +206,8 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
           ),
           const SizedBox(height: 20),
-          SizedBox(
-            height: 380,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                ProductListTile(
-                    name: "Tomato",
-                    price: "RS 35/Kg",
-                    quantity: "20Kg",
-                    imageUrl:
-                        "https://media.istockphoto.com/id/941825878/photo/tomato-with-slice-isolated-with-clipping-path.jpg?s=612x612&w=0&k=20&c=P3PQlDAxzgx5i1hGCHKEcBy-rZmqn4f5CZPggWnh9yQ="),
-                const SizedBox(
-                  width: 20,
-                ),
-                ProductListTile(
-                    name: "Handicraft",
-                    price: "RS 30/item",
-                    quantity: "30",
-                    imageUrl:
-                        "https://e1.pxfuel.com/desktop-wallpaper/236/827/desktop-wallpaper-handicraft-25437-ceramic.jpg"),
-                const SizedBox(
-                  width: 20,
-                ),
-                ProductListTile(
-                  name: "Clothes",
-                  price: "RS 200",
-                  quantity: "20",
-                  imageUrl:
-                      "https://images.pexels.com/photos/352899/pexels-photo-352899.jpeg?cs=srgb&dl=pexels-digital-buggu-352899.jpg&fm=jpg",
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                ProductListTile(
-                    name: "Paintings",
-                    price: "RS 3500",
-                    quantity: "5",
-                    imageUrl:
-                        "https://m.media-amazon.com/images/I/815c0Ud2xNL._AC_UF1000,1000_QL80_.jpg"),
-                const SizedBox(
-                  width: 20,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 30),
+          // ListView(),
+          // Spacer(),
           Container(
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -257,9 +268,9 @@ class _HomePageBodyState extends State<HomePageBody> {
       width: 47,
       child: FloatingActionButton(
         onPressed: () {
-          // Get.to(
-          //   () => ItemListPage(),
-          // );
+          Get.to(
+            () => const AddItemListPage(),
+          );
         },
         backgroundColor: Colors.white,
         child: const Icon(

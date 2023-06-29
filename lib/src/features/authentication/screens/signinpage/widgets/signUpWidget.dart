@@ -25,7 +25,6 @@ class signUpWidget extends StatefulWidget {
 }
 
 class _signUpWidgetState extends State<signUpWidget> {
-  static FirebaseFirestore firestore = FirebaseFirestore.instance;
   String dropdownValue = 'Producer';
   final TextEditingController _fullnameController = TextEditingController();
   final TextEditingController _phoneNoController = TextEditingController();
@@ -222,7 +221,7 @@ class _signUpWidgetState extends State<signUpWidget> {
 
     // push this info above to the firebase to make document
     // using the uid from the gmail login from firestore as the document id
-    await firestore
+    await APIs.firestore
         .collection('Users')
         .doc(APIs.auth.currentUser!.uid)
         .set(newAppUser.toJson());

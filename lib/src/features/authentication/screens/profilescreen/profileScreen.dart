@@ -13,9 +13,10 @@ import 'package:mini_project_1/src/features/authentication/screens/signinpage/si
 import '../../../../apis/api.dart';
 import '../../../../helper/dialogs.dart';
 import '../../../../repository/authentication_repository/authendication_repository.dart';
+import '../../../core_Screens/splash_screen/splashscreen.dart';
 import '../../models/user_login_model.dart';
 
-var screenWidth, screenHeight;
+var ProducerPhoneNumber, ProducerName, ProducerType;
 
 // statefull widget as we are dynamically changing it
 class Profile_Screen extends StatefulWidget {
@@ -35,10 +36,17 @@ class _Profile_ScreenState extends State<Profile_Screen> {
   // not final as there is chance that the list is initialized many times
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    phoneNumberAquire();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    MediaQueryData mq = MediaQuery.of(context);
-    screenWidth = mq.size.width;
-    screenHeight = mq.size.height;
+    mq = MediaQuery.of(context).size;
+    screenWidth = mq.width;
+    screenHeight = mq.height;
     return GestureDetector(
       // for hiding the keboard
       onTap: () => FocusScope.of(context).unfocus(),
@@ -295,86 +303,95 @@ class _Profile_ScreenState extends State<Profile_Screen> {
     );
   }
 
+  phoneNumberAquire() {
+    return {
+      ProducerPhoneNumber = widget.user.phoneNo,
+      ProducerName = widget.user.fullname,
+      ProducerType = widget.user.userType
+    };
+  }
+
   // bottom sheet for picking a profile pic from user
   void _showBottomSheet() {
     showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-        builder: (_) {
-          return ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-                top: screenHeight * .03, bottom: screenHeight * .05),
-            children: [
-              const Text(
-                "Pick Profile Picture",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: screenHeight * .02,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      final ImagePicker picker = ImagePicker();
-                      // Pick an image.
-                      final XFile? image = await picker.pickImage(
-                          source: ImageSource.gallery, imageQuality: 80);
-                      // Capture a photo.
-                      if (image != null) {
-                        log('Image Path: ${image.path} --MimeType: ${image.mimeType}');
-                        setState(() {
-                          _image = image.path;
-                        });
-                      }
-                      APIs.updateProfilePictre(File(_image!));
-                      // for hiding the bottem sheet
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: const CircleBorder(),
-                        fixedSize: Size(screenWidth * .3, screenHeight * 0.15)),
-                    child: Image.asset(
-                      'assets/images/gallery.gif',
-                      height: screenHeight * .3,
-                    ),
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+      builder: (_) {
+        return ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+              top: screenHeight * .03, bottom: screenHeight * .05),
+          children: [
+            const Text(
+              "Pick Profile Picture",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: screenHeight * .02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
+                    // Pick an image.
+                    final XFile? image = await picker.pickImage(
+                        source: ImageSource.gallery, imageQuality: 80);
+                    // Capture a photo.
+                    if (image != null) {
+                      log('Image Path: ${image.path} --MimeType: ${image.mimeType}');
+                      setState(() {
+                        _image = image.path;
+                      });
+                    }
+                    APIs.updateProfilePictre(File(_image!));
+                    // for hiding the bottem sheet
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: const CircleBorder(),
+                      fixedSize: Size(screenWidth * .3, screenHeight * 0.15)),
+                  child: Image.asset(
+                    'assets/images/gallery.gif',
+                    height: screenHeight * .3,
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final ImagePicker picker = ImagePicker();
-                      // Pick an image.
-                      final XFile? image = await picker.pickImage(
-                          source: ImageSource.camera, imageQuality: 80);
-                      // Capture a photo.
-                      if (image != null) {
-                        log('Image Path: ${image.path}');
-                        setState(() {
-                          _image = image.path;
-                        });
-                      }
-                      APIs.updateProfilePictre(File(_image!));
-                      // for hiding the bottem sheet
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: const CircleBorder(),
-                        fixedSize: Size(screenWidth * .3, screenHeight * 0.15)),
-                    child: Image.asset(
-                      'assets/images/camera.gif',
-                      height: screenHeight * .3,
-                    ),
-                  )
-                ],
-              )
-            ],
-          );
-        });
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
+                    // Pick an image.
+                    final XFile? image = await picker.pickImage(
+                        source: ImageSource.camera, imageQuality: 80);
+                    // Capture a photo.
+                    if (image != null) {
+                      log('Image Path: ${image.path}');
+                      setState(() {
+                        _image = image.path;
+                      });
+                    }
+                    APIs.updateProfilePictre(File(_image!));
+                    // for hiding the bottem sheet
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: const CircleBorder(),
+                      fixedSize: Size(screenWidth * .3, screenHeight * 0.15)),
+                  child: Image.asset(
+                    'assets/images/camera.gif',
+                    height: screenHeight * .3,
+                  ),
+                )
+              ],
+            )
+          ],
+        );
+      },
+    );
   }
 }

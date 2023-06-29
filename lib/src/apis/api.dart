@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../features/authentication/models/user_login_model.dart';
+import '../features/core_Screens/Models/AddItemlist_Model/add_item_list_model.dart';
 import '../repository/authentication_repository/authendication_repository.dart';
 
 class APIs {
@@ -21,6 +22,9 @@ class APIs {
 
   // for storing self information
   static late AppUser me;
+
+  // for storing item information
+  static late AddItemListModel itemDetails;
 
   // to return current user
   static User get user => auth.currentUser!;
@@ -132,6 +136,28 @@ class APIs {
     me.image = await ref.getDownloadURL();
     await firestore.collection('Users').doc(user.uid).update({
       'image': me.image, // "image" keyword from json file or check the firebase
+    });
+  }
+
+  static Future<void> updateItemPicture(File file) async {
+    final ext = file.path.split('.').last;
+    log('Extension: $ext');
+
+    // storage file ref with path
+    final ref = storage.ref().child('item_pictures/${user.uid}.');
+
+    // uploading image
+    await ref
+        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      // printing the bytes and /1000 for kb calculation
+      log('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+    });
+
+    itemDetails.image = await ref.getDownloadURL();
+    await firestore.collection('Items').doc(user.uid).update({
+      'image': itemDetails
+          .image, // "image" keyword from json file or check the firebase
     });
   }
 

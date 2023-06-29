@@ -8,11 +8,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
-import 'package:mini_project_1/src/features/core_Screens/on_boarding/on_boarding_screen.dart';
-
 import '../../../../../repository/authentication_repository/authendication_repository.dart';
 import '../../../models/user_login_model.dart';
-import '../../forgot_password/forgot_password_otp/otp_Screen.dart';
 
 final _formKey = GlobalKey<FormState>();
 var Dropdownvalue;
@@ -174,8 +171,6 @@ class _signUpWidgetState extends State<signUpWidget> {
                             .then(
                           (user) async {
                             if (user.exists) {
-                              Get.snackbar("User Already Exist",
-                                  "Please go to login page");
                               APIs.me = AppUser.fromJson(user.data()!);
                               // if user exits then, but we got the json data so we have to parse it
                               log('My Data: ${user.data()}');
@@ -188,8 +183,8 @@ class _signUpWidgetState extends State<signUpWidget> {
                                         Get.snackbar(
                                             colorText: Colors.white,
                                             backgroundColor: Colors.green,
-                                            "User Already Exist",
-                                            "Please go to login page")
+                                            "User Created",
+                                            "Enjoy😊")
                                       })
                                   .then((value) {
                                 Get.to(() => const HomeDrawerScreen());
@@ -202,7 +197,7 @@ class _signUpWidgetState extends State<signUpWidget> {
                     Get.snackbar(
                         colorText: Colors.white,
                         backgroundColor: Colors.red,
-                        "User Already Exist$error",
+                        "User Already Exist",
                         "Please go to login page");
                   });
 

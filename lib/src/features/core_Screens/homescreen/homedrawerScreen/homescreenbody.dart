@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../apis/api.dart';
 import '../../../../common_widgets/Filter_categories_widget.dart';
 import '../../../../components/Add-Items/Page_for_add_items.producer.dart';
 import '../../../../constants/image_strings.dart';
@@ -16,6 +18,12 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+  @override
+  void initState() {
+    super.initState();
+    APIs.getSelfInfo();
+  }
+
   int _selectedIndex = 0;
   double xoffset = 0;
   double yoffset = 0;
@@ -226,7 +234,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   ),
                   onTap: () {
                     _onItemTapped(3);
-                    Get.to(() => const ProfileScreen());
+                    Get.to(() => Profile_Screen(user: APIs.me));
                   },
                 ),
                 MyBottomNavigationBarIcons(

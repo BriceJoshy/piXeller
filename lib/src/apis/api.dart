@@ -1,13 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart';
-
 import '../features/authentication/models/user_login_model.dart';
 import '../repository/authentication_repository/authendication_repository.dart';
 
@@ -54,7 +50,7 @@ class APIs {
           // create a new user
           // await because this funcion should wait for some time
           // getSelfInfo is like a loop
-          await createUser().then((value) => getSelfInfo());
+          // await createUser().then((value) => getSelfInfo());
         }
       },
     );

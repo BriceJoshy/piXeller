@@ -5,7 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mini_project_1/src/constants/colors.dart';
+import 'package:mini_project_1/src/features/authentication/screens/signinpage/signinpage.dart';
 
 import '../../../../apis/api.dart';
 import '../../../../helper/dialogs.dart';
@@ -40,9 +43,25 @@ class _Profile_ScreenState extends State<Profile_Screen> {
       // for hiding the keboard
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+          backgroundColor: Colors.white,
           //appbar
           appBar: AppBar(
-            title: const Text('Profile Screen'),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: Colors.black,
+                )),
+            title: Text(
+              'Profile',
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            centerTitle: true,
           ),
 
           //floating action button to add new user
@@ -69,7 +88,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             // if  "key: _formKey," has not being done then the control of the form key will go to all of them
             key: _formKey,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -131,14 +150,6 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                     // for adding some space
                     SizedBox(
-                      height: screenHeight * .03,
-                    ),
-                    Text(
-                      widget.user.email,
-                      style:
-                          const TextStyle(color: Colors.black54, fontSize: 16),
-                    ),
-                    SizedBox(
                       height: screenHeight * .05,
                     ),
                     // name text form field
@@ -151,13 +162,17 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           ? null
                           : 'Required Field', // checking out value is correct or not
                       decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(25),
+                          border: OutlineInputBorder(),
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2.0, color: Colors.black),
+                          ),
                           prefixIcon: Icon(
                             Icons.person,
-                            color: Colors.blue,
+                            color: Colors.black,
                           ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12))),
                           hintText: "eg. John Smith",
                           label: Text('Name')),
                     ),
@@ -174,16 +189,74 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           ? null
                           : 'Required Field', // checking out value is correct or not
                       decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(25),
+                          border: OutlineInputBorder(),
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2.0, color: Colors.black),
+                          ),
                           prefixIcon: Icon(
                             Icons.info_outline,
-                            color: Colors.blue,
+                            color: Colors.black,
                           ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12))),
                           hintText: "Feeling Happy",
                           label: Text('About')),
                     ),
+                    SizedBox(
+                      height: screenHeight * .02,
+                    ),
+                    TextFormField(
+                      initialValue: widget.user.email,
+                      onSaved: (val) => APIs.me.email = val ?? '',
+                      // we save ourself we want to store is so onSaveed
+                      // stored in val , it can be null bavlue ie why ''
+                      validator: (val) => val != null && val.isNotEmpty
+                          ? null
+                          : 'Required Field', // checking out value is correct or not
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(25),
+                          border: OutlineInputBorder(),
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2.0, color: Colors.black),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.mail_outline_rounded,
+                            color: Colors.black,
+                          ),
+                          hintText: "emailname@gmail.com",
+                          label: Text('Email')),
+                    ),
+                    SizedBox(
+                      height: screenHeight * .02,
+                    ),
+                    TextFormField(
+                      initialValue: widget.user.phoneNo,
+                      onSaved: (val) => APIs.me.phoneNo = val ?? '',
+                      // we save ourself we want to store is so onSaveed
+                      // stored in val , it can be null bavlue ie why ''
+                      validator: (val) => val != null && val.isNotEmpty
+                          ? null
+                          : 'Required Field', // checking out value is correct or not
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(25),
+                          border: OutlineInputBorder(),
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2.0, color: Colors.black),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.phone,
+                            color: Colors.black,
+                          ),
+                          hintText: "+913438483482",
+                          label: Text('Phone No')),
+                    ),
+                    // about text form field
+
                     SizedBox(
                       height: screenHeight * .05,
                     ),
@@ -192,8 +265,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          Dialogs.showSuccesSnackbar(context, 'Well Done!!',
-                              'Your details have been updated');
+                          Get.snackbar("Details Updated",
+                              "Your profile determines your future",
+                              colorText: Colors.white,
+                              backgroundColor: Colors.green);
                           APIs.updateUserInfo();
                           log('inside validator');
                         }
@@ -207,6 +282,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         style: TextStyle(fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
+                          backgroundColor: myPrimaryColor,
                           shape: const StadiumBorder(),
                           minimumSize:
                               Size(screenWidth * .5, screenHeight * .06)),

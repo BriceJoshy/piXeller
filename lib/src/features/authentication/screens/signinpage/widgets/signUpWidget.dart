@@ -163,41 +163,13 @@ class _signUpWidgetState extends State<signUpWidget> {
                       .createUserWithEmailAndPassword(
                           _emailController.text.trim(),
                           _passwordController.text.trim())
-                      .then(
-                        (value) async => await firestore
-                            .collection('Users')
-                            .doc(APIs.auth.currentUser!.uid)
-                            .get()
-                            .then(
-                          (user) async {
-                            if (user.exists) {
-                              APIs.me = AppUser.fromJson(user.data()!);
-                              // if user exits then, but we got the json data so we have to parse it
-                              log('My Data: ${user.data()}');
-                            } else {
-                              // create a new user
-                              // await because this funcion should wait for some time
-                              // getSelfInfo is like a loop
-                              await createUser()
-                                  .then((value) => {
-                                        Get.snackbar(
-                                            colorText: Colors.white,
-                                            backgroundColor: Colors.green,
-                                            "User Created",
-                                            "Enjoy😊")
-                                      })
-                                  .then((value) {
-                                Get.to(() => const HomeDrawerScreen());
-                              });
-                            }
-                          },
-                        ),
-                      )
-                      .onError((error, stackTrace) {
+                      .then((value) {
+                    Get.to(() => const HomeDrawerScreen());
+                  }).onError((error, stackTrace) {
                     Get.snackbar(
                         colorText: Colors.white,
                         backgroundColor: Colors.red,
-                        "User Already Exist",
+                        "User Already Exist${error}",
                         "Please go to login page");
                   });
 
@@ -250,9 +222,9 @@ class _signUpWidgetState extends State<signUpWidget> {
 
     // push this info above to the firebase to make document
     // using the uid from the gmail login from firestore as the document id
-    return (await firestore
+    await firestore
         .collection('Users')
-        .doc(_fullnameController.text.trim())
-        .set(newAppUser.toJson()));
+        .doc(APIs.auth.currentUser!.uid)
+        .set(newAppUser.toJson());
   }
 }

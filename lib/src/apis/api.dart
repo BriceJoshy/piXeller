@@ -47,6 +47,7 @@ class APIs {
           // if user exits then, but we got the json data so we have to parse it
           log('My Data: ${user.data()}');
         } else {
+          print("failed${auth.currentUser!.uid}");
           // create a new user
           // await because this funcion should wait for some time
           // getSelfInfo is like a loop
@@ -93,7 +94,6 @@ class APIs {
       'about': me.about,
       'phoneNo': me.phoneNo,
       'email': me.email,
-      'password': me.password,
     });
   }
 

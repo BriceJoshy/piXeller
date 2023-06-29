@@ -63,8 +63,9 @@ class AuthenticationRepository extends GetxController {
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => Get.to(() => HomeDrawerScreen()));
       // to redirect user
       firebaseUser.value != null
           ? Get.offAll(() => const HomeDrawerScreen())

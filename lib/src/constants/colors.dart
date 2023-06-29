@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // LIST OF ALL COLORS
-const myPrimaryColor = Color(0xffffe400);
+const myPrimaryColor = Color(0xff3a4054);
 const mySecondaryColor = Color(0xff272727);
 const myaccentColor = Color(0xff001bff);
 

@@ -8,6 +8,7 @@ import '../on_boarding/on_boarding_screen.dart';
 
 //global object for accessing device screen size
 late Size mq;
+var screenWidth, screenHeight;
 
 // statefull widget as we are dynamically changing it
 class splash_screen extends StatefulWidget {

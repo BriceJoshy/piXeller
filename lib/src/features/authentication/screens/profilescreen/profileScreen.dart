@@ -96,7 +96,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             // if  "key: _formKey," has not being done then the control of the form key will go to all of them
             key: _formKey,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: SingleChildScrollView(
                 child: Column(
                   children: [

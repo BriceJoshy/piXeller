@@ -171,4 +171,26 @@ class APIs {
         .where('id', isEqualTo: app_User.id)
         .snapshots();
   }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllItems() {
+    // while loading users from collection adding a filter using where clause
+    // ie load users except our own id
+    return firestore
+        .collection('Item List')
+        .where('id',
+            isEqualTo:
+                user.uid) // except our id load all other users from firebase
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getItemDetail() {
+    // while loading users from collection adding a filter using where clause
+    // ie load users except our own id
+    return firestore
+        .collection('Item List')
+        .where('id',
+            isEqualTo:
+                user.uid) // except our id load all other users from firebase
+        .snapshots();
+  }
 }

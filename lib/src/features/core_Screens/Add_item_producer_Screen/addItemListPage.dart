@@ -62,9 +62,12 @@ class _AddItemListPageState extends State<AddItemListPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: mq.height * 0.20,
+                  height: mq.height * 0.2,
                   width: mq.width * 0.5,
                   child: CachedNetworkImage(
+                      placeholder: (context, url) {
+                        return CircularProgressIndicator();
+                      },
                       imageUrl:
                           "https://ecomworld.shop/uploads/default-product.png"),
                 ),
@@ -197,7 +200,9 @@ class _AddItemListPageState extends State<AddItemListPage> {
                   onTap: () async {
                     if (_formKeyItem.currentState!.validate()) {
                       addItemList().then((value) => Get.snackbar("Item Added",
-                          "Please go to back to see the item you've added"));
+                          "Please go to back to see the item you've added",
+                          colorText: Colors.white,
+                          backgroundColor: Colors.green));
                     }
                   },
                   child: Container(
@@ -231,7 +236,7 @@ class _AddItemListPageState extends State<AddItemListPage> {
   Future<void> addItemList() async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
     final newItemAdded = AddItemListModel(
-        id: _itemNameController.text.trim() + ProducerPhoneNumber,
+        id: APIs.user.uid,
         itemCategory: ItemDropdownvalue,
         itemName: _itemNameController.text.trim(),
         itemQuantity: _quantityController.text.trim(),
@@ -246,7 +251,7 @@ class _AddItemListPageState extends State<AddItemListPage> {
     // using the uid from the gmail login from firestore as the document id
     await APIs.firestore
         .collection('Item List')
-        .doc(APIs.auth.currentUser!.uid)
+        .doc()
         .set(newItemAdded.toJson());
   }
 }

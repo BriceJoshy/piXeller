@@ -163,13 +163,8 @@ class _signUpWidgetState extends State<signUpWidget> {
                           _emailController.text.trim(),
                           _passwordController.text.trim())
                       .then((value) {
-                    Get.to(() => const HomeDrawerScreen());
-                  }).onError((error, stackTrace) {
-                    Get.snackbar(
-                        colorText: Colors.white,
-                        backgroundColor: Colors.red,
-                        "User Already Exist${error}",
-                        "Please go to login page");
+                    createUser()
+                        .then((value) => Get.to(() => HomeDrawerScreen()));
                   });
 
                   // SignUpController.instance.createUser(user);
@@ -207,7 +202,7 @@ class _signUpWidgetState extends State<signUpWidget> {
       userType = 1;
     }
     final newAppUser = AppUser(
-      id: _fullnameController.text.trim() + _phoneNoController.text.trim(),
+      id: APIs.user.uid,
       role: Dropdownvalue,
       userType: userType.toString(),
       fullname: _fullnameController.text.trim(),

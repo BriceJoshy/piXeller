@@ -49,5 +49,5 @@ const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";
 const String forgotPasswordMailScreenicon = "assets/icons/forgot_password.png";
 const String forgotPasswordOTPicon = "assets/icons/otp.png";
 
-//
-const String myprofileScreenImage = "assets/images/profile_Screen/profile.jpg";
+// HomeDrawerScreen
+const String myNoSearchResultsImage = "assets/RiveAssets/no_search_results.riv";

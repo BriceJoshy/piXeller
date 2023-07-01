@@ -211,16 +211,48 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                       ],
                     ),
                   ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30, top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MyFilterCategoryListWidget(
+                            image: Image.asset(myClothesFilterGif),
+                            name: "Clothes",
+                          ),
+                          MyFilterCategoryListWidget(
+                            image: Image.asset(myFruitsFilterGif),
+                            name: "Fruits",
+                          ),
+                          MyFilterCategoryListWidget(
+                            image: Image.asset(myVegetableFilterGif),
+                            name: "Veggies",
+                          ),
+                          MyFilterCategoryListWidget(
+                            image: Image.asset(myPaintingsFilterGif),
+                            name: "Paintings",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 30, top: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        MyFilterCategoryListWidget(
-                            image: Image.asset(myClothesFilterGif),
-                            name: "Clothes")
+                        Text(
+                          "Latest Products",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   SizedBox(
                     height: mq.height * .4,

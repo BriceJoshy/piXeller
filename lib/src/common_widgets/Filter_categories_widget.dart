@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../features/core_Screens/on_boarding/on_boarding_screen.dart';
+
 class MyFilterCategoryListWidget extends StatelessWidget {
   final Image image;
   final String name;
@@ -19,7 +21,7 @@ class MyFilterCategoryListWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: Container(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           height: 50,
           width: 120,
           decoration: BoxDecoration(
@@ -27,12 +29,16 @@ class MyFilterCategoryListWidget extends StatelessWidget {
             color: Colors.grey.shade200,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               image,
+              const SizedBox(
+                width: 5,
+              ),
               Text(
                 name,
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500, fontSize: mq.height * 0.015),
               )
             ],
           ),

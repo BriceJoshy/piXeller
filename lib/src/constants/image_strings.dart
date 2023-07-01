@@ -51,3 +51,9 @@ const String forgotPasswordOTPicon = "assets/icons/otp.png";
 
 // HomeDrawerScreen
 const String myNoSearchResultsImage = "assets/RiveAssets/no_search_results.riv";
+
+// FILTER TILES GIFS
+const String myClothesFilterGif = "assets/gifs/clothesFilter.gif";
+const String myFruitsFilterGif = "assets/gifs/fruitsFilter.gif";
+const String myVegetableFilterGif = "assets/gifs/vegeFilter.gif";
+const String myPaintingsFilterGif = "assets/gifs/paintingsFilter.gif";

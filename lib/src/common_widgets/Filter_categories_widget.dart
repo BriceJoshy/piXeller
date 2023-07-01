@@ -17,29 +17,22 @@ class MyFilterCategoryListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Padding(
-        padding: const EdgeInsets.only(left: 1),
-        child: SizedBox(
-          height: 95,
-          width: 100,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.only(left: 20),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          height: 50,
+          width: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: Colors.grey.shade200,
+          ),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xff3a4054),
-                ),
-                child: image,
-              ),
+              image,
               Text(
                 name,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.poppins(
-                    fontSize: 12, fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
               )
             ],
           ),

@@ -65,9 +65,6 @@ class _AddItemListPageState extends State<AddItemListPage> {
                   height: mq.height * 0.2,
                   width: mq.width * 0.5,
                   child: CachedNetworkImage(
-                      placeholder: (context, url) {
-                        return CircularProgressIndicator();
-                      },
                       imageUrl:
                           "https://ecomworld.shop/uploads/default-product.png"),
                 ),

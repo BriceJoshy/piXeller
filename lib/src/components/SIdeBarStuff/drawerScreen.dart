@@ -1,12 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/authentication/screens/profilescreen/profileScreen.dart';
+import 'package:mini_project_1/src/features/core_Screens/DistributerScreen/distibuter_homeDrawerScreen.dart';
 import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
 import 'package:mini_project_1/src/components/configuration.dart';
+
+import '../../apis/api.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
+
+CollectionReference producerUser = APIs.firestore.collection("Users");
+DocumentReference reference = producerUser.doc(APIs.auth.currentUser!.uid);
 
 class _DrawerScreenState extends State<DrawerScreen> {
   @override
@@ -30,48 +39,106 @@ class _DrawerScreenState extends State<DrawerScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Brice Joshy',
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17),
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: reference.snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("User not found",
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ));
+                      }
+                      if (snapshot.hasData) {
+                        DocumentSnapshot docSnapshot = snapshot.data!;
+                        String fieldData =
+                            (docSnapshot.get('fullname')).toString();
+                        return Text(
+                          "Hi! $fieldData",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        );
+                      }
+                      return const Text("Loading...");
+                    },
                   ),
-                  Text('Producer',
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontWeight: FontWeight.w500))
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: reference.snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("User not found",
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ));
+                      }
+                      if (snapshot.hasData) {
+                        DocumentSnapshot docSnapshot = snapshot.data!;
+                        String fieldData = (docSnapshot.get('role')).toString();
+                        return Text(
+                          fieldData,
+                          style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        );
+                      }
+                      return const Text("Loading...");
+                    },
+                  ),
                 ],
               )
             ],
           ),
           Column(
-            children: drawerItems
-                .map(
-                  (element) => Padding(
-                    padding:
-                        const EdgeInsets.only(left: 6.0, top: 10, bottom: 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          element['icon'],
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          element['title'],
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => Profile_Screen(user: APIs.me));
+                },
+                child: const MyListTile(
+                  icon: Icon(
+                    Icons.person_2_rounded,
+                    color: Colors.white,
                   ),
-                )
-                .toList(),
+                  name: "Profle",
+                ),
+              ),
+              const Divider(
+                color: Colors.grey,
+                height: 30,
+              ),
+              const MyListTile(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
+                  name: "Setting"),
+              const Divider(
+                color: Colors.grey,
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const DistributerHome_DrawerPage());
+                },
+                child: const MyListTile(
+                  icon: Icon(
+                    Icons.shopping_bag_rounded,
+                    color: Colors.white,
+                  ),
+                  name: "Distributer Area",
+                ),
+              ),
+              const Divider(
+                color: Colors.grey,
+                height: 30,
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(left: 6.0),
@@ -97,6 +164,32 @@ class _DrawerScreenState extends State<DrawerScreen> {
           )
         ],
       ),
+    );
+  }
+}
+
+class MyListTile extends StatelessWidget {
+  final Icon icon;
+  final String name;
+  const MyListTile({
+    super.key,
+    required this.icon,
+    required this.name,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        icon,
+        const SizedBox(
+          width: 7,
+        ),
+        Text(
+          name,
+          style: GoogleFonts.poppins(fontSize: 20, color: Colors.white),
+        ),
+      ],
     );
   }
 }

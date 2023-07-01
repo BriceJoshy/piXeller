@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,6 +16,7 @@ import 'package:mini_project_1/src/constants/colors.dart';
 
 import '../on_boarding/on_boarding_screen.dart';
 
+int index = 0;
 var UrlImage;
 var ProductCategoryvalue;
 final _ProductFormKey = GlobalKey<FormState>();
@@ -362,7 +364,8 @@ class _ProductPageState extends State<ProductPage> {
     log('Extension: $ext');
 
     // storage file ref with path
-    final ref = APIs.storage.ref().child('product_pictures/${APIs.user.uid}.');
+    final ref = APIs.storage.ref().child('product_pictures/${widget.docId}.');
+    index++;
 
     // uploading image
     await ref

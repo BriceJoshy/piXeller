@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_1/src/features/core_Screens/splash_screen/splashscreen.dart';
-import 'package:mini_project_1/src/utils/themes/theme.dart';
 import 'firebase_options.dart';
 
+// ignore: prefer_typing_uninitialized_variables
 var size, height, width;
 
 Future<void> main() async {
@@ -28,10 +28,6 @@ class MyApp extends StatelessWidget {
     width = size.width;
     return GetMaterialApp(
       navigatorKey: navigatorKey,
-      //  for light theme
-      theme: MyAppTheme.lightTheme,
-      darkTheme: MyAppTheme.darkTheme,
-      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.leftToRightWithFade,
       transitionDuration: const Duration(milliseconds: 500),

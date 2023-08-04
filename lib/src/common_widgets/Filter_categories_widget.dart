@@ -8,16 +8,20 @@ import '../features/core_Screens/on_boarding/on_boarding_screen.dart';
 class MyFilterCategoryListWidget extends StatelessWidget {
   final Image image;
   final String name;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   const MyFilterCategoryListWidget({
-    super.key,
     required this.image,
     required this.name,
+    required this.isSelected,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: Container(
@@ -25,21 +29,26 @@ class MyFilterCategoryListWidget extends StatelessWidget {
           height: 50,
           width: 120,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isSelected ? Colors.orange : Colors.transparent,
+              width: 2.5,
+            ),
+            color: Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               image,
-              const SizedBox(
-                width: 5,
-              ),
+              const SizedBox(width: 5),
               Text(
                 name,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500, fontSize: mq.height * 0.015),
-              )
+                  fontWeight: FontWeight.w500,
+                  fontSize: mq.height * 0.015,
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
         ),

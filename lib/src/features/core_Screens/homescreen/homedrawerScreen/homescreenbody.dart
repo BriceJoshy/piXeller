@@ -174,6 +174,22 @@ class _HomePageBodyState extends State<HomePageBody> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "My Products",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: mq.height * .6,
                 child: StreamBuilder(

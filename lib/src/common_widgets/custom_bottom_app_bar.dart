@@ -39,8 +39,6 @@ class _NotchedBottomNavigationBarState
               label: 'Profile',
             ),
           ],
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white24,
         ),
       ),
     );

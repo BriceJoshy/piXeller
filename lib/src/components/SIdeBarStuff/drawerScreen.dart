@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/features/authentication/screens/profilescreen/profileScreen.dart';
 import 'package:mini_project_1/src/features/core_Screens/DistributerScreen/distibuter_homeDrawerScreen.dart';
 import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
-import 'package:mini_project_1/src/components/configuration.dart';
 
 import '../../apis/api.dart';
 

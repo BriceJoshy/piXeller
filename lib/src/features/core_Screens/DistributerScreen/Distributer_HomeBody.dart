@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/common_widgets/Filter_categories_widget.dart';
+import 'package:mini_project_1/src/common_widgets/product_card.dart';
+import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:rive/rive.dart';
 
 import '../../../apis/api.dart';
@@ -16,6 +18,8 @@ import '../../authentication/screens/profilescreen/profileScreen.dart';
 import '../Add_item_producer_Screen/product_page.dart';
 import '../homescreen/Not_Used_homescreen.dart';
 import '../on_boarding/on_boarding_screen.dart';
+
+var addProductId;
 
 class DistributerHomePage extends StatefulWidget {
   const DistributerHomePage({super.key});
@@ -29,6 +33,7 @@ CollectionReference itemRefernce = APIs.firestore.collection("Item List");
 DocumentReference reference = producerUser.doc(APIs.auth.currentUser!.uid);
 
 class _DistributerHomePageState extends State<DistributerHomePage> {
+  String selectedCategory = "Clothes";
   @override
   void initState() {
     super.initState();
@@ -48,6 +53,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
   }
 
   TextEditingController _searchController = TextEditingController();
+  int selectedCategoryIndex = 0; // Add this variable for selected category
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -56,7 +63,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
         ..scale(scaleFactor),
       duration: const Duration(milliseconds: 250),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
       ),
       child: SingleChildScrollView(
@@ -171,16 +178,16 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: SizedBox(
-                            height: 60,
+                            height: 50,
                             child: CupertinoSearchTextField(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.search_rounded,
-                                color: Colors.black,
+                                color: Colors.grey.shade500,
                                 size: 30,
                               ),
-                              borderRadius: BorderRadius.circular(40),
+                              borderRadius: BorderRadius.circular(10),
                               backgroundColor: Colors.white,
                               onChanged: (value) {
                                 setState(() {});
@@ -189,54 +196,65 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
                       ],
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Product Category",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 30, top: 20),
+                      padding: const EdgeInsets.only(bottom: 15, top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           MyFilterCategoryListWidget(
                             image: Image.asset(myClothesFilterGif),
                             name: "Clothes",
+                            isSelected: selectedCategory == "Clothes",
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = "Clothes";
+                              });
+                            },
                           ),
                           MyFilterCategoryListWidget(
                             image: Image.asset(myFruitsFilterGif),
                             name: "Fruits",
+                            isSelected: selectedCategory == "Fruits",
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = "Fruits";
+                              });
+                            },
                           ),
                           MyFilterCategoryListWidget(
                             image: Image.asset(myVegetableFilterGif),
                             name: "Veggies",
+                            isSelected: selectedCategory == "Veggies",
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = "Veggies";
+                              });
+                            },
                           ),
                           MyFilterCategoryListWidget(
                             image: Image.asset(myPaintingsFilterGif),
                             name: "Paintings",
+                            isSelected: selectedCategory == "Paintings",
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = "Paintings";
+                              });
+                            },
                           ),
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -251,115 +269,353 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    height: mq.height * .4,
-                    child: StreamBuilder(
-                      stream: itemRefernce
-                          .where("id", isEqualTo: APIs.auth.currentUser!.uid)
-                          .snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasError) {
-                          return const Text("Error has occurred",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ));
-                        }
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot docSnapshot =
-                                  snapshot.data!.docs[index];
-                              String DocId = docSnapshot.id;
-                              String ItemCategory =
-                                  (docSnapshot.get("itemCategory")).toString();
-                              String ItemName =
-                                  (docSnapshot.get('itemName')).toString();
-                              String ItemImage =
-                                  (docSnapshot.get('image')).toString();
-                              String ItemQuantity =
-                                  (docSnapshot.get('itemQuantity')).toString();
-                              String ItemPrice =
-                                  (docSnapshot.get('itemPrice')).toString();
-                              String ItemDesription =
-                                  (docSnapshot.get('itemDescription'))
-                                      .toString();
-                              String ProducerNumber =
-                                  (docSnapshot.get('producerNumber'))
-                                      .toString();
-                              if (ItemName.toString().toLowerCase().contains(
-                                      _searchController.text.toLowerCase()) ||
-                                  ItemCategory.toString()
-                                      .toLowerCase()
-                                      .contains(_searchController.text
-                                          .toLowerCase())) {
-                                return SizedBox(
-                                  width: 200,
-                                  // height: 100,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Card(
-                                      margin: const EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 200),
-                                      elevation: 8,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Get.to(() => ProductPage(
-                                          //       ProductCategory: ItemCategory,
-                                          //       ProductDesription: ItemDesription,
-                                          //       ProductImage: ItemImage,
-                                          //       ProductName: ItemName,
-                                          //       ProductPrice: ItemPrice,
-                                          //       ProductQuantity: ItemQuantity,
-                                          //       docId: DocId,
-                                          //     ));
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              height: 110,
-                                              width: 220,
-                                              clipBehavior: Clip.hardEdge,
-                                              decoration: const BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                  top: Radius.circular(20),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: mq.height * .4,
+                        child: StreamBuilder(
+                          stream: itemRefernce
+                              .where("id",
+                                  isEqualTo: APIs.auth.currentUser!.uid)
+                              .snapshots(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasError) {
+                              return const Text("Error has occurred",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ));
+                            }
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: 4,
+                                itemBuilder: (context, index) {
+                                  DocumentSnapshot docSnapshot =
+                                      snapshot.data!.docs[index];
+                                  String DocId = docSnapshot.id;
+                                  String ItemCategory =
+                                      (docSnapshot.get("itemCategory"))
+                                          .toString();
+                                  String ItemName =
+                                      (docSnapshot.get('itemName')).toString();
+                                  String ItemImage =
+                                      (docSnapshot.get('image')).toString();
+                                  String ItemQuantity =
+                                      (docSnapshot.get('itemQuantity'))
+                                          .toString();
+                                  String ItemPrice =
+                                      (docSnapshot.get('itemPrice')).toString();
+                                  String ItemDesription =
+                                      (docSnapshot.get('itemDescription'))
+                                          .toString();
+                                  String ProducerNumber =
+                                      (docSnapshot.get('producerNumber'))
+                                          .toString();
+                                  if (ItemName.toString()
+                                          .toLowerCase()
+                                          .contains(_searchController.text
+                                              .toLowerCase()) ||
+                                      ItemCategory.toString()
+                                          .toLowerCase()
+                                          .contains(_searchController.text
+                                              .toLowerCase())) {
+                                    return SizedBox(
+                                      width: 250,
+                                      // height: 100,
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: Colors.black,
+                                                  width: 0.5),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(20)),
+                                            ),
+                                            margin: const EdgeInsets.only(
+                                                bottom: 50),
+                                            child: InkWell(
+                                              onTap: () {
+                                                // Get.to(() => ProductPage(
+                                                //       ProductCategory: ItemCategory,
+                                                //       ProductDesription: ItemDesription,
+                                                //       ProductImage: ItemImage,
+                                                //       ProductName: ItemName,
+                                                //       ProductPrice: ItemPrice,
+                                                //       ProductQuantity: ItemQuantity,
+                                                //       docId: DocId,
+                                                //     ));
+                                              },
+                                              child: Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5,
+                                                    right: 5,
+                                                    bottom: 10),
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: <Widget>[
+                                                    Positioned(
+                                                        right: -15,
+                                                        bottom: 0,
+                                                        child: MaterialButton(
+                                                          onPressed: () {
+                                                            addProductId =
+                                                                DocId;
+                                                          },
+                                                          color: Colors.orange,
+                                                          textColor:
+                                                              Colors.white,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10),
+                                                          shape:
+                                                              const CircleBorder(),
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            size: 20,
+                                                          ),
+                                                        )),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 3.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            20)),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height: 160,
+                                                              width: 255,
+                                                              fit: BoxFit.cover,
+                                                              imageUrl:
+                                                                  ItemImage,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 15.0),
+                                                          child: Text(
+                                                            ItemName,
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize:
+                                                                    mq.height *
+                                                                        0.025),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 15.0),
+                                                          child: Text(
+                                                            "Quantity: $ItemQuantity",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    fontSize: mq
+                                                                            .height *
+                                                                        0.017),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 15.0),
+                                                          child: Text(
+                                                            ItemPrice,
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize:
+                                                                    mq.height *
+                                                                        0.019),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              child: CachedNetworkImage(
-                                                fit: BoxFit.none,
-                                                imageUrl: ItemImage,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return const Center(
-                                  child: RiveAnimation.asset(
-                                      myNoSearchResultsImage),
-                                );
-                              }
-                            },
-                          );
-                        }
-                        return const Text("Loading...");
-                      },
+                                            ),
+                                          )),
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: RiveAnimation.asset(
+                                          myNoSearchResultsImage),
+                                    );
+                                  }
+                                },
+                              );
+                            }
+                            return const Text("Loading...");
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, bottom: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Popular Items",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 650.0),
+              child: SizedBox(
+                height: mq.height * .6,
+                child: StreamBuilder(
+                  stream: itemRefernce
+                      .where("id", isEqualTo: APIs.auth.currentUser!.uid)
+                      .snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text("Error has occurred",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ));
+                    }
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot docSnapshot =
+                              snapshot.data!.docs[index];
+                          String DocId = docSnapshot.id;
+                          String ItemCategory =
+                              (docSnapshot.get("itemCategory")).toString();
+                          String ItemName =
+                              (docSnapshot.get('itemName')).toString();
+                          String ItemImage =
+                              (docSnapshot.get('image')).toString();
+                          String ItemQuantity =
+                              (docSnapshot.get('itemQuantity')).toString();
+                          String ItemPrice =
+                              (docSnapshot.get('itemPrice')).toString();
+                          String ItemDesription =
+                              (docSnapshot.get('itemDescription')).toString();
+                          if (ItemName.toString()
+                              .toLowerCase()
+                              .contains(_searchController.text.toLowerCase())) {
+                            return Card(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: mq.width * .04, vertical: 4),
+                              color: Colors.grey.shade100,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              elevation: 0.5,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(() => ProductPage(
+                                        ProductCategory: ItemCategory,
+                                        ProductDesription: ItemDesription,
+                                        ProductImage: ItemImage,
+                                        ProductName: ItemName,
+                                        ProductPrice: ItemPrice,
+                                        ProductQuantity: ItemQuantity,
+                                        docId: DocId,
+                                      ));
+                                },
+                                child: SizedBox(
+                                  height: 90,
+                                  child: ListTile(
+                                      shape: ContinuousRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40)),
+                                      tileColor: Colors.white,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 1),
+                                      leading: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 13),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(4.0)),
+                                            child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl: ItemImage),
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(ItemName),
+                                      subtitle: Text(
+                                        "Price:$ItemQuantity\n"
+                                        "Quantity:$ItemPrice",
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      trailing: MaterialButton(
+                                        onPressed: () {
+                                          addProductId = DocId;
+                                        },
+                                        color: Colors.orange,
+                                        textColor: Colors.white,
+                                        padding: const EdgeInsets.all(10),
+                                        shape: const CircleBorder(),
+                                        child: const Icon(
+                                          Icons.add,
+                                          size: 20,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                              child:
+                                  RiveAnimation.asset(myNoSearchResultsImage),
+                            );
+                          }
+                        },
+                      );
+                    }
+                    return const Text("Loading...");
+                  },
+                ),
               ),
             ),
             Positioned(
@@ -380,12 +636,15 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MyBottomNavigationBarIcons(
-                      image: Image.asset(
-                        myHomePageBottomHomeIcon,
-                        color: _selectedIndex == 0 ? Colors.white : Colors.grey,
-                      ),
-                      onTap: () => _onItemTapped(0),
-                    ),
+                        image: Image.asset(
+                          myHomePageBottomHomeIcon,
+                          color:
+                              _selectedIndex == 0 ? Colors.white : Colors.grey,
+                        ),
+                        onTap: () {
+                          _onItemTapped(0);
+                          Get.to(() => const HomeDrawerScreen());
+                        }),
                     MyBottomNavigationBarIcons(
                         image: Image.asset(
                           myHomePageBottomHistoryIcon,

@@ -86,6 +86,7 @@ flutter:
     - assets/images/login_screen/
     - assets/images/onboarding_screen/
     - assets/images/welcome_page/
+    - assets/images/profile_Screen/
     - assets/icons/
     - assets/gifs/
     - assets/RiveAssets/

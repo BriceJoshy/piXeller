@@ -13,6 +13,7 @@ import '../../authentication/screens/profilescreen/profileScreen.dart';
 import '../Add_item_producer_Screen/product_page.dart';
 import '../homescreen/Not_Used_homescreen.dart';
 import '../on_boarding/on_boarding_screen.dart';
+import '../splash_screen/splashscreen.dart';
 
 var addedproductID;
 
@@ -256,7 +257,7 @@ class _DistrubuterCartPageState extends State<DistrubuterCartPage> {
                     ),
                     MyBottomNavigationBarIcons(
                       image: Image.asset(
-                        myHomePageBottomSettingsIcon,
+                        myHomePageBottomBidIcon,
                         color: _selectedIndex == 4 ? Colors.white : Colors.grey,
                       ),
                       onTap: () => _onItemTapped(4),
@@ -307,5 +308,28 @@ Future<void> removeProductFav(addedproductID) async {
   } catch (error) {
     Get.snackbar("SomeThing went wrong", "Please try again",
         colorText: Colors.white, backgroundColor: Colors.red);
+  }
+}
+
+class MyBottomNavigationBarIcons extends StatelessWidget {
+  final Image image;
+  final VoidCallback onTap;
+
+  const MyBottomNavigationBarIcons({
+    Key? key,
+    required this.image,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 32,
+      width: 32,
+      child: GestureDetector(
+        onTap: onTap,
+        child: image,
+      ),
+    );
   }
 }

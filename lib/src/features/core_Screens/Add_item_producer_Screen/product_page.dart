@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,7 +11,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_project_1/src/apis/api.dart';
-import 'package:mini_project_1/src/constants/colors.dart';
 
 import '../on_boarding/on_boarding_screen.dart';
 

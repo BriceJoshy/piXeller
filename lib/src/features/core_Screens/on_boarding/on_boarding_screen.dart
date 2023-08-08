@@ -9,7 +9,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../welcome_screen/welcome_screen.dart';
 import 'on_boarding_page_widget.dart';
 
-late Size mq;
+late Size size;
 final controller = LiquidController();
 int currentPage = 0;
 

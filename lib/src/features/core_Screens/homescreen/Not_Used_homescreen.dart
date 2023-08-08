@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import '../../../constants/image_strings.dart';
+import '../DistributerScreen/DistrubuterCartPage.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class _homeScreenState extends State<homeScreen> {
               ),
               MyBottomNavigationBarIcons(
                 image: Image.asset(
-                  myHomePageBottomSettingsIcon,
+                  myHomePageBottomBidIcon,
                   color: _selectedIndex == 4 ? Colors.white : Colors.grey,
                 ),
                 onTap: () => _onItemTapped(4),
@@ -94,29 +95,6 @@ class _homeScreenState extends State<homeScreen> {
           Icons.add,
           color: Colors.blue,
         ),
-      ),
-    );
-  }
-}
-
-class MyBottomNavigationBarIcons extends StatelessWidget {
-  final Image image;
-  final VoidCallback onTap;
-
-  const MyBottomNavigationBarIcons({
-    Key? key,
-    required this.image,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 32,
-      width: 32,
-      child: GestureDetector(
-        onTap: onTap,
-        child: image,
       ),
     );
   }

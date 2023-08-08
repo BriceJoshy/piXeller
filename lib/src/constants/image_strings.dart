@@ -41,7 +41,7 @@ const String mySignInPagePasswordIcon = "assets/icons/password.png";
 const String myHomePageBottomHomeIcon = "assets/gifs/home.gif";
 const String myHomePageBottomHistoryIcon = "assets/gifs/history.gif";
 const String myHomePageBottomAccountIcon = "assets/gifs/account.gif";
-const String myHomePageBottomSettingsIcon = "assets/gifs/settings.gif";
+const String myHomePageBottomBidIcon = "assets/gifs/bid.gif";
 const String myHomePageBottomSideBarIcon = "assets/icons/side_bar.png";
 
 // --FORGOT PASSWORD--
@@ -57,3 +57,10 @@ const String myClothesFilterGif = "assets/gifs/clothesFilter.gif";
 const String myFruitsFilterGif = "assets/gifs/fruitsFilter.gif";
 const String myVegetableFilterGif = "assets/gifs/vegeFilter.gif";
 const String myPaintingsFilterGif = "assets/gifs/paintingsFilter.gif";
+const String mygardenFilterGif = "assets/gifs/gardenFilter.gif";
+
+// Product Page
+const String myveges = "assets/images/product_page/veg.png";
+const String myfruits = "assets/images/product_page/veg.png";
+const String myclothes = "assets/images/product_page/veg.png";
+const String mypainting = "assets/images/product_page/veg.png";

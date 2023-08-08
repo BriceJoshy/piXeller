@@ -44,7 +44,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
           AnimatedPositioned(
             top: isSignInDialogShown ? -50 : 0,
-            duration: Duration(milliseconds: 240),
+            duration: const Duration(milliseconds: 240),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SafeArea(
@@ -77,7 +77,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                     const Spacer(),
-                    MyAnimatedButton(),
+                    const MyAnimatedButton(),
                   ],
                 ),
               ),

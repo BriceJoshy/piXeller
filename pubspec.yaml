@@ -57,7 +57,7 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   image_picker: ^0.8.9
   cached_network_image: ^3.2.3
-  url_launcher: ^6.1.11
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +87,7 @@ flutter:
     - assets/images/onboarding_screen/
     - assets/images/welcome_page/
     - assets/images/profile_Screen/
+    - assets/images/product_page/
     - assets/icons/
     - assets/gifs/
     - assets/RiveAssets/

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,8 @@ import 'package:mini_project_1/src/features/core_Screens/DistributerScreen/disti
 import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
 
 import '../../apis/api.dart';
+import '../../features/core_Screens/on_boarding/on_boarding_screen.dart';
+import '../../features/core_Screens/splash_screen/splashscreen.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -28,9 +31,36 @@ class _DrawerScreenState extends State<DrawerScreen> {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                radius: 30,
-                child: Icon(Icons.person_2_rounded),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(mq.height * .1),
+                child: StreamBuilder<DocumentSnapshot>(
+                  stream: reference.snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Icon(Icons.person_2_rounded);
+                    }
+                    if (snapshot.hasData) {
+                      DocumentSnapshot docSnapshot = snapshot.data!;
+                      String fieldData = (docSnapshot.get('image')).toString();
+                      return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Profile_Screen(user: APIs.me),
+                                ));
+                          },
+                          child: CachedNetworkImage(
+                              width: mq.width * .12,
+                              height: mq.height * .055,
+                              fit: BoxFit.cover,
+                              imageUrl: fieldData));
+                    }
+                    return const Text("Loading...");
+                  },
+                ),
               ),
               const SizedBox(
                 width: 15,
@@ -54,7 +84,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         String fieldData =
                             (docSnapshot.get('fullname')).toString();
                         return Text(
-                          "Hi! $fieldData",
+                          fieldData,
                           style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mini_project_1/src/apis/api.dart';
 
 import '../on_boarding/on_boarding_screen.dart';
+import '../splash_screen/splashscreen.dart';
 
 int index = 0;
 var UrlImage;

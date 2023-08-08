@@ -1,16 +1,16 @@
 class AddItemListModel {
-  AddItemListModel({
-    required this.id,
-    required this.itemCategory,
-    required this.itemName,
-    required this.itemQuantity,
-    required this.itemPrice,
-    required this.producerNumber,
-    required this.image,
-    required this.producerWarning,
-    required this.itemDescription,
-    required this.createdAt,
-  });
+  AddItemListModel(
+      {required this.id,
+      required this.itemCategory,
+      required this.itemName,
+      required this.itemQuantity,
+      required this.itemPrice,
+      required this.producerNumber,
+      required this.image,
+      required this.producerWarning,
+      required this.itemDescription,
+      required this.createdAt,
+      required this.itemAdded});
   late String id;
   late String itemCategory;
   late String itemName;
@@ -21,6 +21,7 @@ class AddItemListModel {
   late String producerWarning;
   late String itemDescription;
   late String createdAt;
+  late bool itemAdded;
 
   AddItemListModel.fromJson(Map<String, dynamic> json) {
     // if the value is null that is if not filled then return empty String ?? ''
@@ -34,6 +35,7 @@ class AddItemListModel {
     image = json['image'] ?? '';
     producerWarning = json['producerWarning'] ?? '';
     itemDescription = json['itemDescription'] ?? '';
+    itemAdded = json['itemAdded'] ?? '';
     createdAt = json['created_at'] ?? '';
   }
 
@@ -49,6 +51,7 @@ class AddItemListModel {
     data['image'] = image;
     data['producerWarning'] = producerWarning;
     data['itemDescription'] = itemDescription;
+    data['itemAdded'] = itemAdded;
     data['created_at'] = createdAt;
     return data;
   }

@@ -241,7 +241,7 @@ class _AddItemListPageState extends State<AddItemListPage> {
         itemName: _itemNameController.text.trim(),
         itemQuantity: _quantityController.text.trim(),
         itemPrice: _priceController.text.trim(),
-        producerNumber: ProducerPhoneNumber,
+        producerNumber: ProducerPhoneNumber.toString(),
         image: "https://ecomworld.shop/uploads/default-product.png",
         producerWarning: "0",
         itemDescription: _descriptionController.text.trim(),

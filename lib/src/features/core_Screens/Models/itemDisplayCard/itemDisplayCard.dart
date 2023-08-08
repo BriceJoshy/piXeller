@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/constants/image_strings.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../apis/api.dart';
 import '../../on_boarding/on_boarding_screen.dart';
-import '../AddItemlist_Model/add_item_list_model.dart';
 
 class ItemDisplayCard extends StatefulWidget {
   const ItemDisplayCard({

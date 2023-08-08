@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/features/core_Screens/Models/itemDisplayCard/itemDisplayCard.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../apis/api.dart';
-import '../../../../common_widgets/Filter_categories_widget.dart';
 import '../../../../constants/image_strings.dart';
 import '../../../authentication/screens/profilescreen/profileScreen.dart';
 import '../../Add_item_producer_Screen/addItemListPage.dart';
@@ -32,6 +30,7 @@ CollectionReference itemRefernce = APIs.firestore.collection("Item List");
 DocumentReference reference = producerUser.doc(APIs.auth.currentUser!.uid);
 
 class _HomePageBodyState extends State<HomePageBody> {
+  // ignore: prefer_final_fields, unused_field
   List<AddItemListModel> _list = [];
 
   @override

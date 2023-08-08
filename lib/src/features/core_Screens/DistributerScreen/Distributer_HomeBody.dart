@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_1/src/common_widgets/Filter_categories_widget.dart';
-import 'package:mini_project_1/src/common_widgets/product_card.dart';
 import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:rive/rive.dart';
 

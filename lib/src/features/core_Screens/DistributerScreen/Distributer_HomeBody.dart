@@ -7,20 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_1/src/common_widgets/Filter_categories_widget.dart';
-import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:rive/rive.dart';
 
 import '../../../apis/api.dart';
+import '../../../common_widgets/Filter_categories_widget.dart';
 import '../../../constants/image_strings.dart';
 import '../../authentication/screens/profilescreen/profileScreen.dart';
-import '../Add_item_producer_Screen/product_page.dart';
 import '../homescreen/Not_Used_homescreen.dart';
-import '../on_boarding/on_boarding_screen.dart';
+import '../homescreen/homedrawerScreen/homedrawerScreen.dart';
+import '../splash_screen/splashscreen.dart';
 import 'DistrubuterCartPage.dart';
 import 'Distrubuter_Product_page.dart';
 
-var addProductId;
+var addProductId, i;
 
 class DistributerHomePage extends StatefulWidget {
   const DistributerHomePage({super.key});
@@ -32,6 +31,13 @@ class DistributerHomePage extends StatefulWidget {
 CollectionReference producerUser = APIs.firestore.collection("Users");
 CollectionReference itemRefernce = APIs.firestore.collection("Item List");
 DocumentReference reference = producerUser.doc(APIs.auth.currentUser!.uid);
+List<String> Category = [
+  "clothes",
+  "fruit",
+  "vegetables",
+  "painting",
+  "garden",
+];
 
 class _DistributerHomePageState extends State<DistributerHomePage> {
   String selectedCategory = "Clothes";
@@ -53,9 +59,17 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
-  int selectedCategoryIndex = 0; // Add this variable for selected category
+  void _updateSearchText(int i) {
+    setState(() {
+      searchText =
+          Category[i]; // Replace 'New Text' with the text you want to add
+      _searchController.text = searchText;
+    });
+  }
 
+  TextEditingController _searchController = TextEditingController();
+  String searchText = '';
+  int selectedCategoryIndex = 0; // Add this variable for selected category
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -218,6 +232,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               setState(() {
                                 selectedCategory = "Clothes";
                               });
+                              i = 0;
+                              _updateSearchText(i);
                             },
                           ),
                           MyFilterCategoryListWidget(
@@ -228,6 +244,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               setState(() {
                                 selectedCategory = "Fruits";
                               });
+                              i = 1;
+                              _updateSearchText(i);
                             },
                           ),
                           MyFilterCategoryListWidget(
@@ -238,6 +256,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               setState(() {
                                 selectedCategory = "Veggies";
                               });
+                              i = 2;
+                              _updateSearchText(i);
                             },
                           ),
                           MyFilterCategoryListWidget(
@@ -248,6 +268,20 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               setState(() {
                                 selectedCategory = "Paintings";
                               });
+                              i = 3;
+                              _updateSearchText(i);
+                            },
+                          ),
+                          MyFilterCategoryListWidget(
+                            image: Image.asset(mygardenFilterGif),
+                            name: "Garden",
+                            isSelected: selectedCategory == "Garden Centre",
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = "Garden Centre";
+                              });
+                              i = 4;
+                              _updateSearchText(i);
                             },
                           ),
                         ],
@@ -289,13 +323,17 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                   ));
                             }
                             if (snapshot.hasData) {
+                              final List<DocumentSnapshot> documents =
+                                  snapshot.data.docs;
+                              final reversedDocuments =
+                                  List.from(documents.reversed);
                               return ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
-                                itemCount: 4,
+                                itemCount: reversedDocuments.length,
                                 itemBuilder: (context, index) {
                                   DocumentSnapshot docSnapshot =
-                                      snapshot.data!.docs[index];
+                                      reversedDocuments[index];
                                   String DocId = docSnapshot.id;
                                   String ItemCategory =
                                       (docSnapshot.get("itemCategory"))
@@ -312,7 +350,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                   String ItemDesription =
                                       (docSnapshot.get('itemDescription'))
                                           .toString();
-                                  String ProducerNumber =
+                                  String ProducerNum =
                                       (docSnapshot.get('producerNumber'))
                                           .toString();
                                   if (ItemName.toString()
@@ -343,15 +381,21 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                                 bottom: 50),
                                             child: InkWell(
                                               onTap: () {
-                                                // Get.to(() => ProductPage(
-                                                //       ProductCategory: ItemCategory,
-                                                //       ProductDesription: ItemDesription,
-                                                //       ProductImage: ItemImage,
-                                                //       ProductName: ItemName,
-                                                //       ProductPrice: ItemPrice,
-                                                //       ProductQuantity: ItemQuantity,
-                                                //       docId: DocId,
-                                                //     ));
+                                                Get.to(() =>
+                                                    Distributer_Product_page(
+                                                      ProductCategory:
+                                                          ItemCategory,
+                                                      ProductDesription:
+                                                          ItemDesription,
+                                                      ProductImage: ItemImage,
+                                                      ProductName: ItemName,
+                                                      ProductPrice: ItemPrice,
+                                                      ProductQuantity:
+                                                          ItemQuantity,
+                                                      docId: DocId,
+                                                      ProducerNumber:
+                                                          ProducerNum,
+                                                    ));
                                               },
                                               child: Container(
                                                 padding: const EdgeInsets.only(
@@ -362,28 +406,27 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                                   alignment: Alignment.center,
                                                   children: <Widget>[
                                                     Positioned(
-                                                        right: -15,
-                                                        bottom: 0,
-                                                        child: MaterialButton(
-                                                          onPressed: () {
-                                                            addProductId =
-                                                                DocId;
-                                                            updateFirestoreFields(
-                                                                addProductId);
-                                                          },
-                                                          color: Colors.orange,
-                                                          textColor:
-                                                              Colors.white,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(10),
-                                                          shape:
-                                                              const CircleBorder(),
-                                                          child: const Icon(
-                                                            Icons.add,
-                                                            size: 20,
-                                                          ),
-                                                        )),
+                                                      right: -15,
+                                                      bottom: 0,
+                                                      child: MaterialButton(
+                                                        onPressed: () {
+                                                          addProductId = DocId;
+                                                          updateFirestoreFields(
+                                                              addProductId);
+                                                        },
+                                                        color: Colors.orange,
+                                                        textColor: Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        shape:
+                                                            const CircleBorder(),
+                                                        child: const Icon(
+                                                          Icons.add,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                    ),
                                                     Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -500,7 +543,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 650.0),
+              padding: const EdgeInsets.only(top: 650.0, bottom: 100),
               child: SizedBox(
                 height: mq.height * .6,
                 child: StreamBuilder(
@@ -533,9 +576,12 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               (docSnapshot.get('itemPrice')).toString();
                           String ItemDesription =
                               (docSnapshot.get('itemDescription')).toString();
-                          if (ItemName.toString()
-                              .toLowerCase()
-                              .contains(_searchController.text.toLowerCase())) {
+                          String ProducerNum =
+                              (docSnapshot.get("producerNumber")).toString();
+                          if (ItemName.toString().toLowerCase().contains(
+                                  _searchController.text.toLowerCase()) ||
+                              ItemCategory.toString().toLowerCase().contains(
+                                  _searchController.text.toLowerCase())) {
                             return Card(
                               margin: EdgeInsets.symmetric(
                                   horizontal: mq.width * .04, vertical: 4),
@@ -545,60 +591,62 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               elevation: 0.5,
                               child: InkWell(
                                 onTap: () {
-                                  Get.to(() => Distributer_Product_page(
-                                        ProductCategory: ItemCategory,
-                                        ProductDesription: ItemDesription,
-                                        ProductImage: ItemImage,
-                                        ProductName: ItemName,
-                                        ProductPrice: ItemPrice,
-                                        ProductQuantity: ItemQuantity,
-                                        docId: DocId,
-                                      ));
+                                  Get.to(
+                                    () => Distributer_Product_page(
+                                      ProductCategory: ItemCategory,
+                                      ProductDesription: ItemDesription,
+                                      ProductImage: ItemImage,
+                                      ProductName: ItemName,
+                                      ProductPrice: ItemPrice,
+                                      ProductQuantity: ItemQuantity,
+                                      docId: DocId,
+                                      ProducerNumber: ProducerNum,
+                                    ),
+                                  );
                                 },
                                 child: SizedBox(
                                   height: 90,
                                   child: ListTile(
-                                      shape: ContinuousRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40)),
-                                      tileColor: Colors.white,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 1),
-                                      leading: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 13),
-                                        child: AspectRatio(
-                                          aspectRatio: 1,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(4.0)),
-                                            child: CachedNetworkImage(
-                                                fit: BoxFit.cover,
-                                                imageUrl: ItemImage),
-                                          ),
+                                    shape: ContinuousRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40)),
+                                    tileColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 1),
+                                    leading: Padding(
+                                      padding: const EdgeInsets.only(left: 13),
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(4.0)),
+                                          child: CachedNetworkImage(
+                                              fit: BoxFit.cover,
+                                              imageUrl: ItemImage),
                                         ),
                                       ),
-                                      title: Text(ItemName),
-                                      subtitle: Text(
-                                        "Price:$ItemQuantity\n"
-                                        "Quantity:$ItemPrice",
-                                        textAlign: TextAlign.left,
+                                    ),
+                                    title: Text(ItemName),
+                                    subtitle: Text(
+                                      "Price:$ItemQuantity\n"
+                                      "Quantity:$ItemPrice",
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    trailing: MaterialButton(
+                                      onPressed: () {
+                                        addProductId = DocId;
+                                        updateFirestoreFields(addProductId);
+                                      },
+                                      color: Colors.orange,
+                                      textColor: Colors.white,
+                                      padding: const EdgeInsets.all(10),
+                                      shape: const CircleBorder(),
+                                      child: const Icon(
+                                        Icons.add,
+                                        size: 20,
                                       ),
-                                      trailing: MaterialButton(
-                                        onPressed: () {
-                                          addProductId = DocId;
-                                        },
-                                        color: Colors.orange,
-                                        textColor: Colors.white,
-                                        padding: const EdgeInsets.all(10),
-                                        shape: const CircleBorder(),
-                                        child: const Icon(
-                                          Icons.add,
-                                          size: 20,
-                                        ),
-                                      )),
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
@@ -666,7 +714,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                     ),
                     MyBottomNavigationBarIcons(
                       image: Image.asset(
-                        myHomePageBottomSettingsIcon,
+                        myHomePageBottomBidIcon,
+                        height: 15,
                         color: _selectedIndex == 4 ? Colors.white : Colors.grey,
                       ),
                       onTap: () => _onItemTapped(4),

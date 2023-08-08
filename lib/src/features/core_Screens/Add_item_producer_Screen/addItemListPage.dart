@@ -200,6 +200,9 @@ class _AddItemListPageState extends State<AddItemListPage> {
                           "Please go to back to see the item you've added",
                           colorText: Colors.white,
                           backgroundColor: Colors.green));
+                    } else {
+                      Get.snackbar("Item Not Added", "Please try again",
+                          colorText: Colors.white, backgroundColor: Colors.red);
                     }
                   },
                   child: Container(
@@ -242,6 +245,7 @@ class _AddItemListPageState extends State<AddItemListPage> {
         image: "https://ecomworld.shop/uploads/default-product.png",
         producerWarning: "0",
         itemDescription: _descriptionController.text.trim(),
+        itemAdded: false,
         createdAt: time);
 
     // push this info above to the firebase to make document

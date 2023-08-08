@@ -17,6 +17,8 @@ import '../../authentication/screens/profilescreen/profileScreen.dart';
 import '../Add_item_producer_Screen/product_page.dart';
 import '../homescreen/Not_Used_homescreen.dart';
 import '../on_boarding/on_boarding_screen.dart';
+import 'DistrubuterCartPage.dart';
+import 'Distrubuter_Product_page.dart';
 
 var addProductId;
 
@@ -276,10 +278,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                       SizedBox(
                         height: mq.height * .4,
                         child: StreamBuilder(
-                          stream: itemRefernce
-                              .where("id",
-                                  isEqualTo: APIs.auth.currentUser!.uid)
-                              .snapshots(),
+                          stream: itemRefernce.snapshots(),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasError) {
@@ -369,6 +368,8 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                                           onPressed: () {
                                                             addProductId =
                                                                 DocId;
+                                                            updateFirestoreFields(
+                                                                addProductId);
                                                           },
                                                           color: Colors.orange,
                                                           textColor:
@@ -503,9 +504,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
               child: SizedBox(
                 height: mq.height * .6,
                 child: StreamBuilder(
-                  stream: itemRefernce
-                      .where("id", isEqualTo: APIs.auth.currentUser!.uid)
-                      .snapshots(),
+                  stream: itemRefernce.snapshots(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
                       return const Text("Error has occurred",
@@ -546,7 +545,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                               elevation: 0.5,
                               child: InkWell(
                                 onTap: () {
-                                  Get.to(() => ProductPage(
+                                  Get.to(() => Distributer_Product_page(
                                         ProductCategory: ItemCategory,
                                         ProductDesription: ItemDesription,
                                         ProductImage: ItemImage,
@@ -688,9 +687,9 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
       width: 47,
       child: FloatingActionButton(
         onPressed: () {
-          // Get.to(
-          //   () => const AddItemListPage(),
-          // );
+          Get.to(
+            () => const DistrubuterCartPage(),
+          );
         },
         backgroundColor: Colors.white,
         child: const Icon(
@@ -699,5 +698,25 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
         ),
       ),
     );
+  }
+}
+
+Future<void> updateFirestoreFields(addProductId) async {
+  try {
+    // Reference the document using its ID
+    DocumentReference documentRef =
+        APIs.firestore.collection('Item List').doc(addProductId);
+
+    // Update specific fields
+    await documentRef.update({
+      'itemAdded': true,
+      // Add more fields to update as needed
+    });
+
+    Get.snackbar("Product Added!", "Check your cart for the added products",
+        colorText: Colors.white, backgroundColor: Colors.green);
+  } catch (error) {
+    Get.snackbar("SomeThing went wrong", "Please try again",
+        colorText: Colors.white, backgroundColor: Colors.red);
   }
 }

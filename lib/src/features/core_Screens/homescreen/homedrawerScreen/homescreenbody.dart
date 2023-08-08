@@ -123,7 +123,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                         return const Text("Loading...");
                       },
                     ),
-                    const SizedBox(width: 70),
+                    SizedBox(width: mq.width * 0.15),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(mq.height * .1),
                       child: StreamBuilder<DocumentSnapshot>(
@@ -315,12 +315,18 @@ class _HomePageBodyState extends State<HomePageBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MyBottomNavigationBarIcons(
-                      image: Image.asset(
-                        myHomePageBottomHomeIcon,
-                        color: _selectedIndex == 0 ? Colors.white : Colors.grey,
-                      ),
-                      onTap: () => _onItemTapped(0),
-                    ),
+                        image: Image.asset(
+                          myHomePageBottomHomeIcon,
+                          color:
+                              _selectedIndex == 0 ? Colors.white : Colors.grey,
+                        ),
+                        onTap: () {
+                          _onItemTapped(0);
+                          Get.snackbar("At Home Screen",
+                              "You are already at the home screen",
+                              colorText: Colors.white,
+                              backgroundColor: Colors.blue);
+                        }),
                     MyBottomNavigationBarIcons(
                         image: Image.asset(
                           myHomePageBottomHistoryIcon,
@@ -329,7 +335,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                         ),
                         onTap: () {
                           _onItemTapped(1);
-                          // Get.to(() => BiddingPage());
+                          Get.snackbar(
+                              "Refreshed", "You have refreshed the page",
+                              colorText: Colors.white,
+                              backgroundColor: Colors.blue);
                         }),
                     _buildNotchedButton(),
                     MyBottomNavigationBarIcons(
@@ -344,10 +353,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                     ),
                     MyBottomNavigationBarIcons(
                       image: Image.asset(
-                        myHomePageBottomSettingsIcon,
+                        myHomePageBottomBidIcon,
                         color: _selectedIndex == 4 ? Colors.white : Colors.grey,
                       ),
-                      onTap: () => _onItemTapped(4),
+                      onTap: () {
+                        _onItemTapped(4);
+                      },
                     ),
                   ],
                 ),
@@ -391,5 +402,28 @@ class _HomePageBodyState extends State<HomePageBody> {
     } catch (e) {
       print('Error deleting document: $e');
     }
+  }
+}
+
+class MyBottomNavigationBarIcons extends StatelessWidget {
+  final Image image;
+  final VoidCallback onTap;
+
+  const MyBottomNavigationBarIcons({
+    Key? key,
+    required this.image,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 32,
+      width: 32,
+      child: GestureDetector(
+        onTap: onTap,
+        child: image,
+      ),
+    );
   }
 }

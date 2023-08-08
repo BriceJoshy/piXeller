@@ -5,6 +5,7 @@ import 'package:rive/rive.dart';
 
 import '../../../../apis/api.dart';
 import '../../on_boarding/on_boarding_screen.dart';
+import '../../splash_screen/splashscreen.dart';
 
 class ItemDisplayCard extends StatefulWidget {
   const ItemDisplayCard({

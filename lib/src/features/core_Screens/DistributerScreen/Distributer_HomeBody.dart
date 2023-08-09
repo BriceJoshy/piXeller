@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/core_Screens/bidding_pages/Distributer/Distributer_bidding%20page.dart';
 import 'package:rive/rive.dart';
 
 import '../../../apis/api.dart';
@@ -699,7 +700,10 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                         ),
                         onTap: () {
                           _onItemTapped(1);
-                          // Get.to(() => BiddingPage());
+                          Get.snackbar(
+                              "Refreshed", "You have refreshed the page",
+                              colorText: Colors.white,
+                              backgroundColor: Colors.blue);
                         }),
                     _buildNotchedButton(),
                     MyBottomNavigationBarIcons(
@@ -718,7 +722,10 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                         height: 15,
                         color: _selectedIndex == 4 ? Colors.white : Colors.grey,
                       ),
-                      onTap: () => _onItemTapped(4),
+                      onTap: () {
+                        _onItemTapped(4);
+                        Get.to(() => const Distributer_bidding_page());
+                      },
                     ),
                   ],
                 ),
@@ -767,5 +774,28 @@ Future<void> updateFirestoreFields(addProductId) async {
   } catch (error) {
     Get.snackbar("SomeThing went wrong", "Please try again",
         colorText: Colors.white, backgroundColor: Colors.red);
+  }
+}
+
+class MyBottomNavigationBarIcons extends StatelessWidget {
+  final Image image;
+  final VoidCallback onTap;
+
+  const MyBottomNavigationBarIcons({
+    Key? key,
+    required this.image,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 32,
+      width: 32,
+      child: GestureDetector(
+        onTap: onTap,
+        child: image,
+      ),
+    );
   }
 }

@@ -15,6 +15,7 @@ import '../../../authentication/screens/profilescreen/profileScreen.dart';
 import '../../Add_item_producer_Screen/addItemListPage.dart';
 import '../../Add_item_producer_Screen/product_page.dart';
 import '../../Models/AddItemlist_Model/add_item_list_model.dart';
+import '../../bidding_pages/Producer/Producer_bidding page.dart';
 import '../../splash_screen/splashscreen.dart';
 import '../Not_Used_homescreen.dart';
 
@@ -269,8 +270,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                                     ),
                                     title: Text(ItemName),
                                     subtitle: Text(
-                                      "Price:$ItemQuantity\n"
-                                      "Quantity:$ItemPrice",
+                                      "Price:$ItemPrice\n"
+                                      "Quantity:$ItemQuantity",
                                       textAlign: TextAlign.left,
                                     ),
                                     trailing: IconButton(
@@ -358,6 +359,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                       ),
                       onTap: () {
                         _onItemTapped(4);
+                        Get.to(() => const Producer_bidding_page());
                       },
                     ),
                   ],

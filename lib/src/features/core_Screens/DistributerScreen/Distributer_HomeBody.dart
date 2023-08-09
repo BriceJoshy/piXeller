@@ -121,7 +121,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                       },
                                       icon: const Icon(Icons.menu),
                                     ),
-                              const SizedBox(width: 80),
+                              SizedBox(width: mq.width * 0.2),
                               StreamBuilder<DocumentSnapshot>(
                                 stream: reference.snapshots(),
                                 builder: (BuildContext context,
@@ -150,7 +150,7 @@ class _DistributerHomePageState extends State<DistributerHomePage> {
                                   return const Text("Loading...");
                                 },
                               ),
-                              const SizedBox(width: 70),
+                              SizedBox(width: mq.width * 0.19),
                               ClipRRect(
                                 borderRadius:
                                     BorderRadius.circular(mq.height * .1),

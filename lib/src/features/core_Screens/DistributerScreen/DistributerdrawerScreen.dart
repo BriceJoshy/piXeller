@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_1/src/features/core_Screens/bidding_pages/Distributer/Distributer_bidding%20page.dart';
 import 'package:mini_project_1/src/features/core_Screens/homescreen/homedrawerScreen/homedrawerScreen.dart';
 import 'package:mini_project_1/src/repository/authentication_repository/authendication_repository.dart';
 import 'package:mini_project_1/src/components/configuration.dart';
@@ -145,12 +146,17 @@ class _DistributerDrawerScreenState extends State<DistributerDrawerScreen> {
                 color: Colors.grey,
                 height: 30,
               ),
-              const MyListTile(
-                  icon: Icon(
-                    Icons.settings,
-                    color: Colors.white,
-                  ),
-                  name: "Setting"),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const Distributer_bidding_page());
+                },
+                child: const MyListTile(
+                    icon: Icon(
+                      Icons.attach_money_rounded,
+                      color: Colors.white,
+                    ),
+                    name: "Bidding Area"),
+              ),
               const Divider(
                 color: Colors.grey,
                 height: 30,

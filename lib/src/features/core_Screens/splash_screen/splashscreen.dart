@@ -44,11 +44,25 @@ class _splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("piXeller", style: GoogleFonts.poppins()),
-            CircularProgressIndicator(),
+            const SizedBox(
+              height: 80,
+            ),
+            Image.asset("assets/logo/logo.png"),
+            const SizedBox(
+              height: 20,
+            ),
+            Text("piXeller",
+                style: GoogleFonts.poppins(
+                    fontSize: 30, fontWeight: FontWeight.bold)),
+            const SizedBox(
+              height: 150,
+            ),
+            const CircularProgressIndicator(),
           ],
         ),
       ),

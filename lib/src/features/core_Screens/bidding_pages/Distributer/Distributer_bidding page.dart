@@ -88,7 +88,7 @@ class _Distributer_bidding_pageState extends State<Distributer_bidding_page> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          "Add Bid Item",
+          "Bid Item",
           style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -147,9 +147,7 @@ class _Distributer_bidding_pageState extends State<Distributer_bidding_page> {
                   SizedBox(
                     height: mq.height * .6,
                     child: StreamBuilder(
-                      stream: itemRefernce
-                          .where("id", isEqualTo: APIs.auth.currentUser!.uid)
-                          .snapshots(),
+                      stream: itemRefernce.snapshots(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.hasError) {
                           return const Text("Error has occurred",

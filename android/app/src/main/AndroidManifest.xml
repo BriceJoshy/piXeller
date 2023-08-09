@@ -22,7 +22,7 @@
   </intent>
 </queries>
     <application
-        android:label="mini_project_1"
+        android:label="piXeller"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

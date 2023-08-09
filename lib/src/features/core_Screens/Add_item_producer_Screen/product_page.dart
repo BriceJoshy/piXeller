@@ -428,7 +428,7 @@ class _ProductPageState extends State<ProductPage> {
                       shape: const CircleBorder(),
                       fixedSize: Size(mq.width * .3, mq.height * 0.15)),
                   child: Image.asset(
-                    'assets/images/gallery.gif',
+                    'assets/gifs/gallery.gif',
                     height: mq.height * .3,
                   ),
                 ),
@@ -454,7 +454,7 @@ class _ProductPageState extends State<ProductPage> {
                       shape: const CircleBorder(),
                       fixedSize: Size(mq.width * .3, mq.height * 0.15)),
                   child: Image.asset(
-                    'assets/images/camera.gif',
+                    'assets/gifs/camera.gif',
                     height: mq.height * .3,
                   ),
                 )
